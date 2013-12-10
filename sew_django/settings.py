@@ -57,9 +57,13 @@ WSGI_APPLICATION = 'sew_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
 }
 
 # Internationalization
@@ -80,3 +84,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+TEMPLATE_DIRS = (
+    location("templates"),
+)
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'sass --scss --compass {infile} {outfile}'),
+)
+
+try:
+    from local_settings import *
+except ImportError:
+    print "no local_settings.py file?"

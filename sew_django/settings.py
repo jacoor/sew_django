@@ -10,7 +10,11 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+project = lambda: os.path.dirname(os.path.realpath(__file__))
+location = lambda x: os.path.join(str(project()), str(x))
 
 
 # Quick-start development settings - unsuitable for production

@@ -28,6 +28,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+COMPRESS_CSS_HASHING_METHOD = 'content'
+COMPRESS_OFFLINE = True
+
+
+# Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -36,6 +41,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'south',
+#    'ydcommon',
+    'compressor',
+    'raven.contrib.django.raven_compat',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,7 +93,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-
 
 TEMPLATE_DIRS = (
     location("templates"),

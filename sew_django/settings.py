@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
 #    'ydcommon',
+    'tinymce',
     'compressor',
     'raven.contrib.django.raven_compat',
 )

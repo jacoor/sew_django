@@ -24,11 +24,10 @@ location = lambda x: os.path.join(str(project()), str(x))
 SECRET_KEY = 'vh@yfr%59d7v%81ovor+2j^s(ra8s32pd89n%gf0i%v0si+$8^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
+TEMPLATE_DEBUG = False
+ALLOWED_HOSTS = ['am.ivolution.pl']
 
 
 # Application definition

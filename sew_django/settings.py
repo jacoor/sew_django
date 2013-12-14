@@ -96,11 +96,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+STATIC_ROOT = location(os.path.join("site_media", "static"))
 
-TEMPLATE_DIRS = (
-    location("templates"),
+# Additional directories which hold static files
+STATICFILES_DIRS = [
+    location("static"),
+]
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 )
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = "/static/"
+
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'sass --scss --compass {infile} {outfile}'),

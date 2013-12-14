@@ -12,7 +12,4 @@ urlpatterns = patterns('',
     (r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:],  # cut away leading slash
          'django.views.static.serve', {'document_root': settings.STATIC_ROOT,
                                        'show_indexes': True}),
-        (r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:],  # cut away leading slash
-         'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,
-                                       'show_indexes': True}),
 )

@@ -38,4 +38,4 @@ local_settings.py
 admin/
 sew_django/site_media/
 node_modules/
-.sass_cache/
+.sass-cache/

@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-       grunt.initConfig({
+    grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
         sass: {
@@ -9,11 +9,10 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'css/build/normalize.css': 'sew_django/static/libs/foundation-5.0.2/scss/foundation.scss',
-                    'css/build/foundation.css': 'sew_django/static/libs/foundation-5.0.2/scss/foundation.scss'
+                    '.sass-cache/livereload/main.css': 'sew_django/static/scss/main.scss'
                 }
             } 
-        }
+        },
         watch: {
             css: {
                 files: ['css/*.scss'],
@@ -28,5 +27,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.registerTask('default', ['sass', 'watch']);
+    grunt.registerTask('default', ['watch', 'sass']);
 };
+

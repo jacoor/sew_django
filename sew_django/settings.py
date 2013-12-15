@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 project = lambda: os.path.dirname(os.path.realpath(__file__))
 location = lambda x: os.path.join(str(project()), str(x))
@@ -29,6 +30,12 @@ DEBUG = False
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ['am.ivolution.pl']
 
+
+ADMINS = (
+    ('jacek', 'jacek@ivolution.pl'),
+)
+
+MANAGERS = ADMINS
 
 # Application definition
 COMPRESS_CSS_HASHING_METHOD = 'content'

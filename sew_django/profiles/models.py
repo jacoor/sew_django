@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 # Create your models here.
 
 class ProfileManager(BaseUserManager):
@@ -24,7 +24,7 @@ class ProfileManager(BaseUserManager):
         u.save(using=self._db)
         return u
 
-class Profile(AbstractBaseUser):
+class Profile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('adres email', max_length=110, unique=True)
     names = models.CharField('imiona', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)

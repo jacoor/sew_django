@@ -30,7 +30,6 @@ DEBUG = False
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ['am.ivolution.pl']
 
-
 ADMINS = (
     ('jacek', 'jacek@ivolution.pl'),
 )
@@ -41,8 +40,15 @@ MANAGERS = ADMINS
 COMPRESS_CSS_HASHING_METHOD = 'content'
 COMPRESS_OFFLINE = True
 
+AUTH_USER_MODEL = 'profiles.Profile'
 
 # Application definition
+
+PROJECT_APPS = (
+    # project
+    'sew_django.profiles',
+)
+
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -56,7 +62,7 @@ INSTALLED_APPS = (
     'tinymce',
     'compressor',
     'raven.contrib.django.raven_compat',
-)
+) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,6 +72,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
 
 ROOT_URLCONF = 'sew_django.urls'
 
@@ -89,7 +96,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE="pl"
 
 TIME_ZONE = 'UTC'
 

@@ -1,4 +1,20 @@
 {% extends "base.html" %}
 {% block proper_content %}
     <h1 class="header text-center">System Ewidencji Wolontariuszy <br>Wrocławskiego Sztabu WOŚP</h1>
+    <form action="." method="post">
+        <legend>Jeśli posiadasz konto, zaloguj się</legend>
+        <fieldset>
+            {% csrf_token %}
+            <ul class="form-list no-bullet clearfix">
+                {% block form_fields_list %}
+                    {% for f in login_form %}
+                        {% include "inc/forms/form_as_ul.html" with f=f %}
+                    {% endfor %}
+                {% endblock form_fields_list %}
+                <li class="text-right">
+                    <button class="tiny radius">Wyślij</button>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
 {% endblock %}

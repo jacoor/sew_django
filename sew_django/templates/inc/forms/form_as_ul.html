@@ -1,0 +1,37 @@
+{% load i18n %}
+{% if f %}
+    <li class="form-field {% if forloop and forloop.counter|divisibleby:2 %}even{% endif %} {{f.auto_id }} {{f.field.widget.attrs.li_class}} {% if f.errors %} invalid error{% endif %}">
+        {% if f.field.before %}
+            <span class="before">{{f.field.before}}</span>
+        {% endif %}
+        {% if f.field.or_divider %}
+            <div class="or-divider-container"><div class="or-divider">{% trans "or" %}</div></div>
+        {% endif %}
+        {% if f.help_text and tooltip %}
+            <div class="input_wrapper with_tooltip show_tooltip">
+        {% endif %}
+        {% if f.label %}
+            {{f.label_tag}}
+        {% endif %}
+        {{f}}
+        {% if f.help_text and tooltip %}
+            <span class="tooltip_marker">?</span>
+        {% endif %}
+        {% if not no_errors %}
+            {% if f.errors %}
+                <small>{{f.errors}}</small>
+            {% endif %}
+        {% endif %}
+        {% if f.help_text  and not tooltip %}
+            <span class="help_text {{f.field.widget.attrs.help_text_class}}">
+                {{f.help_text|safe}}
+            </span>
+        {% endif %}
+        {% if f.help_text and tooltip %}
+            </div>
+        {% endif %}
+        {% if f.help_text  and tooltip %}
+            {{f.help_text|safe}}
+        {% endif %}
+    </li>
+{% endif %}

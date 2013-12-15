@@ -60,7 +60,6 @@ def deploy(full=False, libs=False, migrate=False):
             if line.find('grep') == -1:
                 pid = line.strip().split(' ')[0]
         sudo('kill -9 %s' % pid)
-        output = run("ps ax|grep 'sensehealth.*sh-%s.*celery'" % prefix, shell=False)
         for line in output.split("\n"):
             if line.find('grep') == -1:
                 pid = line.strip().split(' ')[0]

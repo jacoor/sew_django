@@ -29,7 +29,6 @@ class ProfileTests(TestCase):
         #request = RequestFactory().get(reverse('index'))
         c = Client()
         response = c.get('/')
-        #response.status_code
         self.assertEqual(response.status_code, 200)
 
     def test_login(self):
@@ -41,7 +40,7 @@ class ProfileTests(TestCase):
         response = self.client.login(email='joe@doe.com', password='dump-password')
         self.assertEqual(response, True)
 
-    def test_login_form(self):
+    def test_login_form_view(self):
         response = self.client.post("/", {})
         self.assertFormError(response, 'login_form', 'password', 'To pole jest wymagane.')
         self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
@@ -54,4 +53,14 @@ class ProfileTests(TestCase):
 
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, u'Wprowadź poprawną adres email oraz hasło. Uwaga: wielkość liter ma znaczenie.')
+
+        self.user.is_superuser = True
+        self.user.save()
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')
+
+        self.user.is_active = True
+        self.user.save()
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
 

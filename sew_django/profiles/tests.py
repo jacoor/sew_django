@@ -21,7 +21,7 @@ class ProfileTests(TestCase):
     def setUp(self):
         self.user = Profile.objects.create(names='Joe',
                                             email='joe@doe.com',
-                                            is_active=True)
+                                            is_active=False)
         self.user.set_password('dump-password')
         self.user.save()
 

@@ -6,10 +6,18 @@
     <meta name="viewport" content="initial-scale=1.0" />
 
     <title>Foundation | Welcome</title>
-    {% compress css %}
-        <link type="text/x-scss" href='{{STATIC_URL}}libs/foundation-5.0.2/scss/normalize.scss' rel='stylesheet' />
-        <link type="text/x-scss" href='{{STATIC_URL}}libs/foundation-5.0.2/scss/foundation.scss' rel='stylesheet' />
-    {% endcompress %}
+    {% if debug %}
+        {% comment %}
+            Different paths to files, to support live reload
+        {% endcomment %}
+        <link rel="stylesheet" media="all" href="{{ STATIC_URL }}.sass-cache/livereload/main.css" />
+    {% else %}
+        {% compress css %}
+            <link type="text/x-scss" href='{{STATIC_URL}}libs/foundation-5.0.2/scss/normalize.scss' rel='stylesheet' />
+            <link type="text/x-scss" href='{{STATIC_URL}}libs/foundation-5.0.2/scss/foundation.scss' rel='stylesheet' />
+        {% endcompress %}
+    {% endif %}
+
     <script src="{{STATIC_URL}}libs/foundation-5.0.2/js/vendor/custom.modernizr.js"></script>
     <style>
     .example-orbit-content li div {

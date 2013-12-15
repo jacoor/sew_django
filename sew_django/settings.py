@@ -78,6 +78,7 @@ ROOT_URLCONF = 'sew_django.urls'
 
 WSGI_APPLICATION = 'sew_django.wsgi.application'
 
+FORCE_SCRIPT_NAME = ""
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

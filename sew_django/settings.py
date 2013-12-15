@@ -143,3 +143,12 @@ try:
     from local_settings import *
 except ImportError:
     print "no local_settings.py file?"
+
+
+if TESTING:
+    try:
+        from test_settings import *        # pyflakes:ignore
+        update_settings_for_tests(locals())
+    except ImportError:
+        pass
+

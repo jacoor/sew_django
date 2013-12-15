@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.test.client import Client
 
 from sew_django.profiles.models import Profile
-from sew_django.profiles.views import Index
+#from sew_django.profiles.views import Index
 
 
 

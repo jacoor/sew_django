@@ -1,0 +1,63 @@
+{% load compress %}
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+<head>
+    <meta name="viewport" content="initial-scale=1.0" />
+
+    <title>{% block title %}Sew - system ewidencji wolontariuszy{% endblock %}</title>
+    {% if debug %}
+        {% comment %}
+        Different paths to files, to support live reload
+        {% endcomment %}
+        <link rel="stylesheet" media="all" href="{{ STATIC_URL }}.sass-cache/livereload/main.css" />
+    {% else %}
+        {% compress css %}
+            <link type="text/x-scss" href='{{STATIC_URL}}scss/main.scss' rel='stylesheet' />
+        {% endcompress %}
+    {% endif %}
+    {% compress js %}
+        <script src="{{STATIC_URL}}libs/foundation-5.0.2/js/vendor/custom.modernizr.js"></script>
+    {% endcompress %}
+</head>
+<body>
+    <div class="row">
+        {% block content %}
+            <div class="columns large-12">
+                {% block proper_content %}{% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% compress js %}
+<script src='{{STATIC_URL}}libs/foundation-5.0.2/js/vendor/jquery.js'></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.alert.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.clearing.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.dropdown.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.joyride.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.magellan.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.orbit.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.tooltip.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.topbar.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.interchange.js"></script>
+
+<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.abide.js"></script>
+
+<script>
+    $(document).foundation();
+</script>
+{% endcompress %}
+</body>
+</html>

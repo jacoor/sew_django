@@ -32,3 +32,11 @@ class ProfileTests(TestCase):
         #response.status_code
         self.assertEqual(response.status_code, 200)
 
+    def test_login(self):
+        #request = RequestFactory().get(reverse('index'))
+        response = self.client.login(email='joe@doe.com', password='dump-password')
+        self.assertEqual(response, False) 
+        self.user.is_active = True
+        self.user.save()
+        response = self.client.login(email='joe@doe.com', password='dump-password')
+        self.assertEqual(response, True)

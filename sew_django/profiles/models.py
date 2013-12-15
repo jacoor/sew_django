@@ -45,3 +45,10 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
     def get_by_natural_key(self, username):
         return self.get(**{self.model.USERNAME_FIELD: username})
+
+    def get_full_name(self):
+        full_name = '%s %s' % (self.names, self.last_name)
+        return full_name.strip()
+
+    def get_short_name(self):
+        return self.last_name

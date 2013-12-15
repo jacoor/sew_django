@@ -148,9 +148,6 @@ import sys
 TESTING = ('test' in sys.argv)
 TEST_CHARSET = 'utf8'
 
-TEST_RUNNER = 'sh.utils.testing.TimingTestSuiteRunner'
-TEST_MAX_TIME = 1.0
-
 if TESTING:
     try:
         from test_settings import *        # pyflakes:ignore

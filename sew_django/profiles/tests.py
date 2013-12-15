@@ -52,7 +52,8 @@ class ProfileTests(TestCase):
         self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
 
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
-        self.assertFormError(response, 'login_form', None, u'Wprowadź poprawną adres email oraz hasło. Uwaga: wielkość liter ma znaczenie.')
+        self.assertFormError(response, 'login_form', None, 
+            u'Wprowadź poprawną adres email oraz hasło. Uwaga: wielkość liter ma znaczenie.')
 
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')

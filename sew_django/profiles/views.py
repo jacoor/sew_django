@@ -4,7 +4,6 @@ from django.shortcuts import render
 
 # -*- coding: utf-8 -*-
 import urlparse
-import recurly
 
 from django.views.generic import TemplateView, RedirectView
 from django.contrib.auth import login as auth_login, logout as auth_logout
@@ -12,7 +11,10 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+
+
 from sew_django.profiles.models import Profile
+from sew_django.profiles.forms import EmailAuthenticationForm,
 #from sew_django.emails.send import send_email
 
 
@@ -32,7 +34,7 @@ class IndexView(TemplateView):
     auto_id = False  # removes labels
 
     def get_context_data(self, *args, **kwargs):
-        context = super(AccountAuthView, self).get_context_data(*args, **kwargs)
+        context = super(IndexView, self).get_context_data(*args, **kwargs)
         redirect_to = self.request.REQUEST.get(self.redirect_field_name, '')
         context[self.redirect_field_name] = redirect_to
         context['login_form'] = EmailAuthenticationForm(prefix=self.login_prefix, auto_id=self.auto_id)

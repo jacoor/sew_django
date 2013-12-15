@@ -41,8 +41,15 @@ MANAGERS = ADMINS
 COMPRESS_CSS_HASHING_METHOD = 'content'
 COMPRESS_OFFLINE = True
 
+AUTH_USER_MODEL = 'profiles.Profile'
 
 # Application definition
+
+PROJECT_APPS = (
+    # project
+    'sew_django.profiles',
+)
+
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -56,7 +63,7 @@ INSTALLED_APPS = (
     'tinymce',
     'compressor',
     'raven.contrib.django.raven_compat',
-)
+) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -67,10 +74,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-PROJECT_APPS = (
-    # project
-    'sew_django.profiles',
-)
 
 ROOT_URLCONF = 'sew_django.urls'
 

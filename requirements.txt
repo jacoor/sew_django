@@ -8,4 +8,5 @@ raven
 ydcommon==0.1.7
 django-tinymce==1.5.2
 flup==1.0.3.dev-20110405
+nodeenv
 

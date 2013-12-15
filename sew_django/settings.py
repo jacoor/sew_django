@@ -67,6 +67,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+PROJECT_APPS = (
+    # project
+    'sew_django.profiles',
+)
+
 ROOT_URLCONF = 'sew_django.urls'
 
 WSGI_APPLICATION = 'sew_django.wsgi.application'

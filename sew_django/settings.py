@@ -115,6 +115,9 @@ STATICFILES_FINDERS = (
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = "/static/"
 
+TEMPLATE_DIRS = (
+    location("templates"),
+)
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'sass --scss --compass {infile} {outfile}'),

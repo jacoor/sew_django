@@ -120,7 +120,8 @@ TEMPLATE_DIRS = (
 )
 
 COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'sass --scss --compass {infile} {outfile}'),
+    #('text/x-scss', 'sass --scss  --debug-info {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss --compass  --debug-info {infile} {outfile}'),
 )
 
 try:

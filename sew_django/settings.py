@@ -30,7 +30,6 @@ DEBUG = False
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ['am.ivolution.pl']
 
-
 ADMINS = (
     ('jacek', 'jacek@ivolution.pl'),
 )
@@ -97,7 +96,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE="pl"
 
 TIME_ZONE = 'UTC'
 

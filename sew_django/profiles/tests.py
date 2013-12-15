@@ -54,12 +54,11 @@ class ProfileTests(TestCase):
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, u'Wprowadź poprawną adres email oraz hasło. Uwaga: wielkość liter ma znaczenie.')
 
-        self.user.is_superuser = True
-        self.user.save()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')
 
         self.user.is_active = True
+        self.user.is_superuser = True
         self.user.save()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)

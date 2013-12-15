@@ -17,6 +17,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 project = lambda: os.path.dirname(os.path.realpath(__file__))
 location = lambda x: os.path.join(str(project()), str(x))
 
+LOGIN_REDIRECT_URL="/admin/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -143,3 +144,15 @@ try:
     from local_settings import *
 except ImportError:
     print "no local_settings.py file?"
+
+import sys
+TESTING = ('test' in sys.argv)
+TEST_CHARSET = 'utf8'
+
+if TESTING:
+    try:
+        from test_settings import *        # pyflakes:ignore
+        update_settings_for_tests(locals())
+    except ImportError:
+        pass
+

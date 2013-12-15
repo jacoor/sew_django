@@ -6,7 +6,8 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 options: {
-                    style: 'compressed'
+                    style: 'compressed',
+                    debugInfo : true
                 },
                 files: {
                     '.sass-cache/livereload/main.css': 'sew_django/static/scss/main.scss'
@@ -27,6 +28,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.registerTask('default', ['watch', 'sass']);
+    grunt.registerTask('default', [ 'sass']);
 };
 

@@ -52,7 +52,6 @@ PROJECT_APPS = (
 
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -63,6 +62,9 @@ INSTALLED_APPS = (
     'tinymce',
     'compressor',
     'raven.contrib.django.raven_compat',
+    'grappelli',
+    'filebrowser',
+    'django.contrib.admin',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
@@ -80,6 +82,8 @@ ROOT_URLCONF = 'sew_django.urls'
 WSGI_APPLICATION = 'sew_django.wsgi.application'
 
 FORCE_SCRIPT_NAME = ""
+
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -127,13 +131,47 @@ STATICFILES_FINDERS = (
     "compressor.finders.CompressorFinder",
 )
 
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = location(os.path.join("site_media", "media"))
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = '/media/'
+
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = "/static/"
 
+ADMIN_MEDIA_ROOT = location(os.path.join("static", "admin"))
+
 TEMPLATE_DIRS = (
     location("templates"),
 )
+
+TINYMCE_SPELLCHECKER = False
+TINYMCE_COMPRESSOR = False
+TINYMCE_FILEBROWSER = True
+
+
+FILEBROWSER_URL_FILEBROWSER_MEDIA = STATIC_URL + 'filebrowser/'
+FILEBROWSER_PATH_FILEBROWSER_MEDIA = MEDIA_ROOT + 'filebrowser/'
+FILEBROWSER_STATIC_URL = STATIC_URL + 'filebrowser/'
+
+FILEBROWSER_EXTENSIONS = {
+    'Folder': [''],
+    'Image': ['.jpg', '.jpeg', '.gif', '.png'],
+}
+FILEBROWSER_VERSIONS_BASEDIR = '.thumbnails'
+FILEBROWSER_URL_TINYMCE = STATIC_URL + "tiny_mce/"
+FILEBROWSER_PATH_TINYMCE = STATIC_URL + "tiny_mce/"
+
+FILEBROWSER_VERSIONS = {
+                      'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+                      }
+FILEBROWSER_ADMIN_VERSIONS = []
+FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
 
 COMPRESS_PRECOMPILERS = (
     #('text/x-scss', 'sass --scss  --debug-info {infile} {outfile}'),

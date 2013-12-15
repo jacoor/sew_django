@@ -9,4 +9,6 @@ ydcommon==0.1.7
 django-tinymce==1.5.2
 flup==1.0.3.dev-20110405
 nodeenv
+django-grappelli==2.5.0
+django-filebrowser==3.5.2
 

@@ -21,15 +21,14 @@ class ProfileTests(TestCase):
     def setUp(self):
         self.user = Profile.objects.create(names='Joe',
                                             email='joe@doe.com',
-                                            is_active=True,
-                                            phone='111111')
+                                            is_active=True)
         self.user.set_password('dump-password')
         self.user.save()
 
     def test_index(self):
         #request = RequestFactory().get(reverse('index'))
         c = Client()
-        responce = c.get('/')
+        response = c.get('/')
         #response.status_code
         self.assertEqual(response.status_code, 200)
 

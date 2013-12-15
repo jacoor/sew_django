@@ -65,7 +65,7 @@ def deploy(full=False, libs=False, migrate=False):
                 pid = line.strip().split(' ')[0]
         sudo('kill -9 %s' % pid)
     else:
-        sudo('supervisorctl restart sew' % prefix)
+        sudo('supervisorctl restart sew')
     if full:
         update_cron()
 

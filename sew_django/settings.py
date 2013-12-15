@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-#    'ydcommon',
+    'ydcommon',
     'tinymce',
     'compressor',
     'raven.contrib.django.raven_compat',

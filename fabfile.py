@@ -1,5 +1,5 @@
 from fabric.api import env, run, sudo, cd, local
-
+from ydcommon.fab import *
 
 env.hosts = ['amazon-dev', ]
 env.use_ssh_config = True
@@ -14,15 +14,15 @@ def get_vars(keys):
     app_dir = 'public_html/sew_django'
     if branch == 'develop' and dev_on_sh:
         env.host_string = 'am.ivolution.pl'
-        env.user = "sew"
-        user = "ubuntu"
+        env.user = "ubuntu"
+        user = "sew"
         environment = "sew"
 
     data = {
         'user': user,
-        'path': '/home/%s/public_html/' % (user,),
-        'python': '/home/%s/Envs/%s-%s/bin/python' % (user, app_dir, prefix),
-        'pip': '/home/%s/Envs/%s-%s/bin/pip' % (user, app_dir, prefix),
+        'path': '/home/%s/%s/' % (user,app_dir),
+        'python': '/home/%s/Envs/%s/bin/python' % (user, environment),
+        'pip': '/home/%s/Envs/%s/bin/pip' % (user, environment),
         'prefix': prefix,
         'environment': environment,
         'app_dir': app_dir,
@@ -41,7 +41,7 @@ def deploy(full=False, libs=False, migrate=False):
         sudo('find . -name "*.pyc" -delete', user=user)
         if full or libs:
             sudo(pip + ' install -r requirements.txt', user=user)
-            sudo('find /home/%s/Envs/%s-%s/ -name "*.pyc" -delete' % (user, app_dir, prefix), user=user)
+            sudo('find /home/%s/Envs/%s/ -name "*.pyc" -delete' % (user, environment), user=user)
         if full or migrate:
             sudo(python + ' manage.py syncdb', user=user)
             sudo(python + ' manage.py migrate', user=user)

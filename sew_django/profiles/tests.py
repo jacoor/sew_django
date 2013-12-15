@@ -40,3 +40,18 @@ class ProfileTests(TestCase):
         self.user.save()
         response = self.client.login(email='joe@doe.com', password='dump-password')
         self.assertEqual(response, True)
+
+    def test_login_form(self):
+        response = self.client.post("/", {})
+        self.assertFormError(response, 'login_form', 'password', 'To pole jest wymagane.')
+        self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
+
+        response = self.client.post("/", {'login-username':'xxx'})
+        self.assertFormError(response, 'login_form', 'password', 'To pole jest wymagane.')
+        
+        response = self.client.post("/", {'login-password':'xxx'})
+        self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
+
+        response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
+        self.assertFormError(response, 'login_form', None, u'Wprowadź poprawną adres email oraz hasło. Uwaga: wielkość liter ma znaczenie.')
+

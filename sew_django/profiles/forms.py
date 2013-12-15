@@ -12,7 +12,6 @@ from django.core.mail import EmailMessage
 from django.template import loader
 from django.utils.http import int_to_base36
 from django.contrib import auth
-from django.contrib.auth.hashers import UNUSABLE_PASSWORD
 
 from sew_django.profiles.models import Profile
 
@@ -22,21 +21,6 @@ def get_user_by_email(email):
     for user in users:
         if user.email == email:
             return user
-
-
-class EmailAuthenticationForm(AuthenticationForm):
-    """
-    Extends the standard django AuthenticationForm, to support 75 character
-    usernames. 75 character usernames are needed to support the EmailOrUsername
-    auth backend.
-    """
-    username = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'Email'}))
-    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': _('Password')}))
-
-    def __init__(self, *args, **kwargs):
-        super(EmailAuthenticationForm, self).__init__(*args, **kwargs)
-        self.error_messages['invalid_login'] = _("Your email or password is incorrect <br />"
-                           "<a href='%s'>Forgot your password</a>") % reverse('password_reset')
 
 '''
 class PasswordResetForm(DjangoPasswordResetForm):

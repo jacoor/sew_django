@@ -11,10 +11,9 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-
+from django.contrib.auth.forms import AuthenticationForm as EmailAuthenticationForm
 
 from sew_django.profiles.models import Profile
-from sew_django.profiles.forms import EmailAuthenticationForm,
 #from sew_django.emails.send import send_email
 
 
@@ -29,7 +28,7 @@ class LogoutView(RedirectView):
 
 class IndexView(TemplateView):
     redirect_field_name = 'next'
-    template_name = 'index'
+    template_name = 'index.html'
     login_prefix = 'login'
     auto_id = False  # removes labels
 

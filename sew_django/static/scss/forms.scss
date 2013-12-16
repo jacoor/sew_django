@@ -1,0 +1,11 @@
+@import
+    "../libs/foundation-5.0.2/scss/foundation/components/_forms.scss";
+
+form{
+    .form-list .form-field.error .errorlist{
+        @extend ul.no-bullet;
+        li{
+            @extend small.error;
+        }
+    }
+}

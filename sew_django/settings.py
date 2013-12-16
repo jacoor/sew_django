@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['am.ivolution.pl']
 ADMINS = (
     ('jacek', 'jacek@ivolution.pl'),
 )
-
+SERVER_EMAIL = 'jacek@ivolution.pl'
 MANAGERS = ADMINS
 
 # Application definition

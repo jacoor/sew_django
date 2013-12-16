@@ -69,6 +69,13 @@ class ProfileTests(TestCase):
         response = self.client.get("/reset_password/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'password/reset.html')
+        response = self.client.post("/reset_password/", {})
+        self.assertFormError(response, 'form', 'email', 'To pole jest wymagane.')
+        response = self.client.post("/reset_password/", {'email':'xxx'})
+        self.assertFormError(response, 'form', 'email', u'Wprowadź poprawną nazwę użytkownika.')
+
+        response = self.client.post("/reset_password/", {'email':'joe@doe.com'})
+        self.assertRedirects(response, '/password_reset_done/', status_code=302, target_status_code=200)
 
     def test_recover_password_step2(self):
         response = self.client.get("/reset_password_confirm/MQ-3ng-31448e78548ea8785b65/")

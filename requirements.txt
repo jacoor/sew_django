@@ -13,4 +13,5 @@ django-grappelli==2.5.0
 django-filebrowser==3.5.2
 django_jenkins==0.14.1
 django-celery==3.0.11
+pyflakes
 

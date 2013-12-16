@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 
-from sew_django.profiles.views import IndexView, LogoutView
+from sew_django.profiles.views import  LogoutView
 
 urlpatterns = patterns('',
     url(r"^$", IndexView.as_view(), name='index'),

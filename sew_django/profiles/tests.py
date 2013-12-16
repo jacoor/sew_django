@@ -32,6 +32,10 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
 
+    def test_logout(self):
+        response = self.client.get('/logout/')
+        self.assertRedirects(response, '/', status_code=301, target_status_code=200)
+
     def test_login(self):
         #request = RequestFactory().get(reverse('index'))
         response = self.client.login(email='joe@doe.com', password='dump-password')

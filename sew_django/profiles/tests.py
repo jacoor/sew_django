@@ -73,12 +73,15 @@ class ProfileTests(TestCase):
     def test_recover_password_step2(self):
         response = self.client.get("/reset_password_confirm/MQ-3ng-31448e78548ea8785b65/")
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset_confirm.html')
 
     def test_recover_password_step3(self):
         response = self.client.get("/password_reset_done/")
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset_done.html')
 
     def test_recover_password_step4(self):
         response = self.client.get("/reset_password_complete/")
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset_complete.html')
 

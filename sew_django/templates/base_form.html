@@ -1,11 +1,11 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 
-{% block "proper_content" %}
+{% block proper_content %}
     {% block above_form %}{% endblock %}
-    <form action="{% block form_action %}.{% endblock %}" method="{% block form_method %}get{% endblock %}">
+    <form action="{% block form_action %}.{% endblock %}" method="{% block form_method %}post{% endblock %}">
         <fieldset>
             {% block legend %}
-                <legend>{% block legend_content %}{% endblock %}</legend>
+                <legend>{% block legend_content %}Legend{% endblock %}</legend>
             {% endblock legend %}
             {% csrf_token %}
             {% block form_help %}

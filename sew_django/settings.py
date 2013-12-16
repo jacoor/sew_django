@@ -67,7 +67,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django_jenkins',
     'pyflakes',
-    'failtest',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (

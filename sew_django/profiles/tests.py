@@ -30,6 +30,7 @@ class ProfileTests(TestCase):
         c = Client()
         response = c.get('/')
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index.html')
 
     def test_login(self):
         #request = RequestFactory().get(reverse('index'))
@@ -63,4 +64,21 @@ class ProfileTests(TestCase):
         self.user.save()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+
+    def test_recover_password_step1(self):
+        response = self.client.get("/reset_password/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset.html')
+
+    def test_recover_password_step2(self):
+        response = self.client.get("/reset_password_confirm/MQ-3ng-31448e78548ea8785b65/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_recover_password_step3(self):
+        response = self.client.get("/password_reset_done/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_recover_password_step4(self):
+        response = self.client.get("/reset_password_complete/")
+        self.assertEqual(response.status_code, 200)
 

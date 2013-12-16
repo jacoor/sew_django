@@ -18,8 +18,9 @@
                         {% include "inc/forms/form_as_ul.html" with f=f %}
                     {% endfor %}
                 {% endblock form_fields_list %}
-                <li class="text-right">
-                    <button class="tiny radius">Wyślij</button>
+                <li>
+                    <a href="{% url "password_reset" %}" class="left">Zapomniałem hasła</a>
+                    <span class="right"><button class="tiny radius">Wyślij</button></span>
                 </li>
             </ul>
         </fieldset>

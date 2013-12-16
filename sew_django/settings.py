@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'grappelli',
     'filebrowser',
     'django.contrib.admin',
+    'django_jenkins',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (

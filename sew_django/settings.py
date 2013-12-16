@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'filebrowser',
     'django.contrib.admin',
     'django_jenkins',
+    'pyflakes',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (

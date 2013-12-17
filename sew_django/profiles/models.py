@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -26,7 +27,7 @@ class ProfileManager(BaseUserManager):
 
 class Profile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('adres email', max_length=110, unique=True)
-    names = models.CharField('imiona', max_length=100, blank=True)
+    first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
 

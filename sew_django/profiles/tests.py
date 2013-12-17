@@ -19,7 +19,7 @@ def setup_view(view, request, *args, **kwargs):
 class ProfileTests(TestCase):
 
     def setUp(self):
-        self.user = Profile.objects.create(names='Joe',
+        self.user = Profile.objects.create(first_name='Joe',
                                             email='joe@doe.com',
                                             is_active=False)
         self.user.set_password('dump-password')

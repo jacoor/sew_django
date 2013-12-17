@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block proper_content %}
-    <h1 class="header text-center">System Ewidencji Wolontariuszy <br>Wrocławskiego Sztabu WOŚP</h1>
     <form action="." method="post">
         <fieldset>
             <legend>Jeśli posiadasz konto, zaloguj się</legend>
             {% csrf_token %}
+            <input type="hidden" name="next">
             {% if login_form.non_field_errors %}
                 <ul class="errors no-bullet">
                     {% for e in login_form.non_field_errors %}

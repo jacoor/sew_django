@@ -66,6 +66,10 @@ class ProfileTests(TestCase):
         self.user.is_active = True
         self.user.is_superuser = True
         self.user.save()
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com', \
+            'next' :'none/'})
+        self.assertRedirects(response, '/none/', status_code=302, target_status_code=404)
+        
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
 

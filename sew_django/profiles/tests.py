@@ -59,7 +59,7 @@ class ProfileTests(TestCase):
 
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, 
-            u'Wprowadź poprawną nazwa użytkownika oraz hasło. Uwaga: wielkość liter ma znaczenie.')
+            u"Wprowadź poprawną nazwę użytkownika lub adres email.")
 
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
         self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')

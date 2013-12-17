@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm as EmailAuthenticationForm
+from sew_django.profiles.forms import AuthenticationForm
 
 from sew_django.profiles.models import Profile
 #from sew_django.emails.send import send_email
@@ -32,7 +32,7 @@ class IndexView(TemplateView):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
         redirect_to = self.request.REQUEST.get(self.redirect_field_name, '')
         context[self.redirect_field_name] = redirect_to
-        context['login_form'] = EmailAuthenticationForm(prefix=self.login_prefix, auto_id=self.auto_id)
+        context['login_form'] = AuthenticationForm(prefix=self.login_prefix, auto_id=self.auto_id)
         return context
 
     def check_redirect(self, context):
@@ -51,7 +51,7 @@ class IndexView(TemplateView):
         redirect_to = self.check_redirect(context)
 
         if request.method == "POST":
-            login_form = EmailAuthenticationForm(
+            login_form = AuthenticationForm(
                 prefix=self.login_prefix,
                 data=request.POST,
                 auto_id=self.auto_id

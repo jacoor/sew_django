@@ -25,6 +25,9 @@ class ProfileManager(BaseUserManager):
         u.save(using=self._db)
         return u
 
+    def get_by_email(self, username):
+        return self.get(**{'email': username})
+
 class Profile(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=110, db_index=True, unique=True)

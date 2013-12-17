@@ -53,6 +53,11 @@ PROJECT_APPS = (
     'sew_django.profiles',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'sew_django.profiles.backends.EmailAuthBackend.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',

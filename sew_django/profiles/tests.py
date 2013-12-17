@@ -74,6 +74,9 @@ class ProfileTests(TestCase):
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
 
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+        
     def test_recover_password_step1(self):
         response = self.client.get("/reset_password/")
         self.assertEqual(response.status_code, 200)

@@ -26,14 +26,15 @@ class ProfileManager(BaseUserManager):
         return u
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField('adres email', max_length=110, unique=True, db_index=True)
+    username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
+    email = models.EmailField('adres email', max_length=110, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
 
     token = models.CharField(max_length=40, blank=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
 
     objects = ProfileManager()
     
@@ -55,4 +56,4 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         return self.last_name
 
     def get_username(self):
-        return self.email
+        return self.username

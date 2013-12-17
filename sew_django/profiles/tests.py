@@ -20,6 +20,7 @@ class ProfileTests(TestCase):
 
     def setUp(self):
         self.user = Profile.objects.create(first_name='Joe',
+                                            username ='joe',
                                             email='joe@doe.com',
                                             is_active=False)
         self.user.set_password('dump-password')
@@ -38,11 +39,11 @@ class ProfileTests(TestCase):
 
     def test_login(self):
         #request = RequestFactory().get(reverse('index'))
-        response = self.client.login(email='joe@doe.com', password='dump-password')
+        response = self.client.login(username='joe', password='dump-password')
         self.assertEqual(response, False) 
         self.user.is_active = True
         self.user.save()
-        response = self.client.login(email='joe@doe.com', password='dump-password')
+        response = self.client.login(username='joe', password='dump-password')
         self.assertEqual(response, True)
 
     def test_login_form_view(self):
@@ -58,19 +59,19 @@ class ProfileTests(TestCase):
 
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, 
-            u'Wprowadź poprawną adres email oraz hasło. Uwaga: wielkość liter ma znaczenie.')
+            u'Wprowadź poprawną nazwa użytkownika oraz hasło. Uwaga: wielkość liter ma znaczenie.')
 
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
         self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')
 
         self.user.is_active = True
         self.user.is_superuser = True
         self.user.save()
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com', \
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe', \
             'next' :'none/'})
         self.assertRedirects(response, '/none/', status_code=302, target_status_code=404)
         
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
 
     def test_recover_password_step1(self):

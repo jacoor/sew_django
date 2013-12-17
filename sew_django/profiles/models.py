@@ -26,7 +26,7 @@ class ProfileManager(BaseUserManager):
         return u
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField('adres email', max_length=110, unique=True)
+    email = models.EmailField('adres email', max_length=110, unique=True, db_index=True)
     first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
@@ -48,8 +48,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         return self.get(**{self.model.USERNAME_FIELD: username})
 
     def get_full_name(self):
-        full_name = '%s %s' % (self.names, self.last_name)
+        full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
 
     def get_short_name(self):
         return self.last_name
+
+    def get_username(self):
+        return self.email

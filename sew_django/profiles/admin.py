@@ -15,9 +15,4 @@ class UserAdmin(UserAdmin):
     add_form = UserAdminCreationForm
     change_password_form = AdminPasswordChangeForm
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super(UserAdmin, self).get_form(request, obj, **kwargs)
-        self.exclude = ("username", )
-        return form
-
 admin.site.register(Profile, UserAdmin)

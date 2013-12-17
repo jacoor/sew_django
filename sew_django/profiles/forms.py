@@ -10,10 +10,6 @@ from passwords.fields import PasswordField
 
 from sew_django.profiles.models import Profile
 
-class BaseValidatingForm(forms.Form):
-    new_password1 = PasswordField(label=_("New password"))
-    new_password2 = PasswordField(label=_("New password confirmation"))
-
 class ValidatingSetPasswordForm(SetPasswordForm):
     new_password1 = PasswordField(label=_("New password"))
     new_password2 = PasswordField(label=_("New password confirmation"))

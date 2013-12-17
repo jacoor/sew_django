@@ -10,12 +10,14 @@ from sew_django.profiles.forms import UserAdminCreationForm, AdminPasswordChange
 class UserAdmin(UserAdmin):
     list_display = ('email', 'is_staff')
     ordering = ('email',)
-    #fieldsets = (
-    #    (None, {'fields': ('email', 'password')}),
-    #    (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',)}),
-    #    (_('Important dates'), {'fields': ('last_login',)}),
-    #)
+    readonly_fields=('date_joined',)
+    fieldsets = ()
     add_form = UserAdminCreationForm
     change_password_form = AdminPasswordChangeForm
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(UserAdmin, self).get_form(request, obj, **kwargs)
+        self.exclude = ("username", )
+        return form
 
 admin.site.register(Profile, UserAdmin)

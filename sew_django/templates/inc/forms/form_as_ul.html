@@ -18,9 +18,7 @@
             <span class="tooltip_marker">?</span>
         {% endif %}
         {% if not no_errors %}
-            {% if f.errors %}
-                <small>{{f.errors}}</small>
-            {% endif %}
+            {{f.errors}}
         {% endif %}
         {% if f.help_text  and not tooltip %}
             <span class="help_text {{f.field.widget.attrs.help_text_class}}">

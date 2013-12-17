@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block proper_content %}
+    {% block above_form %}{% endblock %}
+    <form action="{% block form_action %}.{% endblock %}" method="{% block form_method %}post{% endblock %}">
+        <fieldset>
+            {% block legend %}
+                <legend>{% block legend_content %}Legend{% endblock %}</legend>
+            {% endblock legend %}
+            {% csrf_token %}
+            {% block form_help %}
+            {% endblock %}
+            {% block form %}
+                {% if form.non_field_errors %}
+                    <ul class="errors no-bullet">
+                        {% for e in form.non_field_errors %}
+                            <li><label class="error">{{e}}</label></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <ul class="form-list no-bullet clearfix">
+                    {% block form_fields_list %}
+                        {% for f in form %}
+                            {% include "inc/forms/form_as_ul.html" with f=f %}
+                        {% endfor %}
+                    {% endblock form_fields_list %}
+                    {% block form_submit %}
+                    <li>
+                        {% block submit_button %}<button class="tiny radius">Wyślij</button>{% endblock %}
+                    </li>
+                    {% endblock %}
+                </ul>
+            {% endblock form %}
+        </fieldset>
+    </form>
+    {% block below_form %}{% endblock %}
+{% endblock %}

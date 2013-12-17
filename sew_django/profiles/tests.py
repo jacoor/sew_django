@@ -19,7 +19,8 @@ def setup_view(view, request, *args, **kwargs):
 class ProfileTests(TestCase):
 
     def setUp(self):
-        self.user = Profile.objects.create(names='Joe',
+        self.user = Profile.objects.create(first_name='Joe',
+                                            username ='joe',
                                             email='joe@doe.com',
                                             is_active=False)
         self.user.set_password('dump-password')
@@ -30,14 +31,19 @@ class ProfileTests(TestCase):
         c = Client()
         response = c.get('/')
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index.html')
+
+    def test_logout(self):
+        response = self.client.get('/logout/')
+        self.assertRedirects(response, '/', status_code=301, target_status_code=200)
 
     def test_login(self):
         #request = RequestFactory().get(reverse('index'))
-        response = self.client.login(email='joe@doe.com', password='dump-password')
+        response = self.client.login(username='joe', password='dump-password')
         self.assertEqual(response, False) 
         self.user.is_active = True
         self.user.save()
-        response = self.client.login(email='joe@doe.com', password='dump-password')
+        response = self.client.login(username='joe', password='dump-password')
         self.assertEqual(response, True)
 
     def test_login_form_view(self):
@@ -53,14 +59,41 @@ class ProfileTests(TestCase):
 
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, 
-            u'Wprowadź poprawną adres email oraz hasło. Uwaga: wielkość liter ma znaczenie.')
+            u'Wprowadź poprawną nazwa użytkownika oraz hasło. Uwaga: wielkość liter ma znaczenie.')
 
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
         self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')
 
         self.user.is_active = True
         self.user.is_superuser = True
         self.user.save()
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe', \
+            'next' :'none/'})
+        self.assertRedirects(response, '/none/', status_code=302, target_status_code=404)
+        
+        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
+        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+        
+    def test_recover_password_step1(self):
+        response = self.client.get("/reset_password/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset.html')
+
+    def test_recover_password_step2(self):
+        response = self.client.get("/reset_password_confirm/MQ-3ng-31448e78548ea8785b65/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset_confirm.html')
+
+    def test_recover_password_step3(self):
+        response = self.client.get("/password_reset_done/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset_done.html')
+
+    def test_recover_password_step4(self):
+        response = self.client.get("/reset_password_complete/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'password/reset_complete.html')
 

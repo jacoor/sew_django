@@ -4,9 +4,7 @@
     </label>
     
     {{f}}
-    {% if f.errors %}
-    <small>{{f.errors}}</small>
-    {% endif %}
+    {{f.errors}}
     {% if f.help_text %}
     <span class="help_text {{f.field.widget.attrs.help_text_class}}">
         {{f.help_text|safe}}

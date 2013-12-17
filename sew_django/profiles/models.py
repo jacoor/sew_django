@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -25,14 +26,15 @@ class ProfileManager(BaseUserManager):
         return u
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField('adres email', max_length=110, unique=True)
-    names = models.CharField('imiona', max_length=100, blank=True)
+    username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
+    email = models.EmailField('adres email', max_length=110, db_index=True, unique=True)
+    first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
 
     token = models.CharField(max_length=40, blank=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
 
     objects = ProfileManager()
     
@@ -47,8 +49,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         return self.get(**{self.model.USERNAME_FIELD: username})
 
     def get_full_name(self):
-        full_name = '%s %s' % (self.names, self.last_name)
+        full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
 
     def get_short_name(self):
         return self.last_name
+
+    def get_username(self):
+        return self.username

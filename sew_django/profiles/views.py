@@ -1,10 +1,6 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 # -*- coding: utf-8 -*-
 import urlparse
-
+from django.shortcuts import render
 from django.views.generic import TemplateView, RedirectView
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect

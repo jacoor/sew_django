@@ -42,6 +42,8 @@ COMPRESS_CSS_HASHING_METHOD = 'content'
 COMPRESS_OFFLINE = True
 
 AUTH_USER_MODEL = 'profiles.Profile'
+PASSWORD_MIN_LENGTH = 8
+PASSWORD_COMPLEXITY = { "UPPER":  1, "LOWER":  1, "DIGITS": 1 }
 
 # Application definition
 
@@ -67,6 +69,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django_jenkins',
     'pyflakes',
+    'passwords',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (

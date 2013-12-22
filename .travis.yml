@@ -8,8 +8,6 @@ python:
 env:
   - DJANGO="django==1.6.1 --use-mirrors"
   - DJANGO="django==1.6 --use-mirrors"
-  - DJANGO="django==1.5 --use-mirrors"
-  - DJANGO="django==1.4.2 --use-mirrors"
   - DJANGO=https://github.com/django/django/archive/master.zip  
 
 install:

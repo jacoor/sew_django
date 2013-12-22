@@ -73,8 +73,6 @@ INSTALLED_APPS = (
     'grappelli',
     'filebrowser',
     'django.contrib.admin',
-    'django_jenkins',
-    'pyflakes',
     'passwords',
 ) + PROJECT_APPS
 

@@ -15,6 +15,9 @@ install:
  - pip install coverage coveralls
  - pip install $DJANGO
 
+before_script:
+  - python manage.py compress
+
 script:
   - coverage run --source='.' manage.py test sew_django
 

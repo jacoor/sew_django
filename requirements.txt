@@ -13,3 +13,4 @@ django-filebrowser==3.5.2
 django-celery==3.0.11
 #pyflakes removed on 22.12.2013, to confirm not needed
 django-passwords==0.2.0
+django-localflavor==1.0

@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'filebrowser',
     'django.contrib.admin',
     'passwords',
+    'django-localflavor',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (

@@ -72,7 +72,7 @@ Upon successful completion of the installation initialize the database. (NOTE: d
 Get Sass (OSX. for linux you need to do your own research :P )
 
 ::
-
+    
     sudo gem install sass
     sudo gem install compass
 

@@ -2,6 +2,8 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
+from localflavor.pl.forms import PLNationalIdentificationNumberField as PeselField
 # Create your models here.
 
 class ProfileManager(BaseUserManager):
@@ -32,12 +34,13 @@ class ProfileManager(BaseUserManager):
         return self.get(**{'pesel': username})
 
 class Profile(AbstractBaseUser, PermissionsMixin):
+    PeselValidators = ()
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=110, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
-    pesel = models.IntegerField('PESEL', max_lenght=11, min_length=11)
+    pesel = models.IntegerField('PESEL', max_length=11, min_length=11, unique=True, validators=PeselValidators) #dodac validators dla pesela!
 
     token = models.CharField(max_length=40, blank=True)
 

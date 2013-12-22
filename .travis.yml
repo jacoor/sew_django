@@ -24,7 +24,8 @@ before_script:
   - python manage.py compress
 
 script:
-  - coverage run --source='.' manage.py test sew_django
+#  - coverage run --source='.' manage.py test sew_django
+  - coverage run --source=django_sew manage.py test django_sew
 
 #matrix:
 #  exclude:

@@ -5,6 +5,11 @@ Sew django
 .. image:: https://travis-ci.org/jacoor/sew_django.png?branch=develop   
    :target: https://travis-ci.org/jacoor/sew_django
 
+
+.. image:: https://coveralls.io/repos/jacoor/sew_django/badge.png
+   :target: https://coveralls.io/r/jacoor/sew_django
+
+
 .. contents::
 
 Prerequisites

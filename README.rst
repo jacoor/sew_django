@@ -80,7 +80,6 @@ Upon successful completion of the installation initialize the database. (NOTE: d
 Get Sass (OSX. for linux you need to do your own research :P )
 
 ::
-    {<img src="https://travis-ci.org/jacoor/sew_django.png?branch=develop" alt="Build Status" />}[https://travis-ci.org/jacoor/sew_django]
 
     sudo gem install sass
     sudo gem install compass

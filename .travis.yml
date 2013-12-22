@@ -11,6 +11,8 @@ env:
   - DJANGO=https://github.com/django/django/archive/master.zip  
 
 install:
+ - sudo apt-get update
+ - sudo apt-get upgrade
  - sudo apt-get install ruby1.8 ruby1.8-dev irb rdoc ri --fix-missing
  - sudo gem install sass
  - sudo gem install compass

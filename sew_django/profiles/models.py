@@ -40,7 +40,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
-    pesel = models.IntegerField('PESEL', max_length=11, min_length=11, unique=True, validators=PeselValidators) #dodac validators dla pesela!
+    pesel = models.IntegerField('PESEL', max_length=11, db_index=True, unique=True, validators=PeselValidators) #dodac validators dla pesela!
 
     token = models.CharField(max_length=40, blank=True)
 

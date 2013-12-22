@@ -2,7 +2,8 @@
 Sew django
 **********
 
-.. image:: https://travis-ci.org/jacoor/sew_django.png?branch=develop   :target: https://travis-ci.org/jacoor/sew_django
+.. image:: https://travis-ci.org/jacoor/sew_django.png?branch=develop   
+   :target: https://travis-ci.org/jacoor/sew_django
 
 .. contents::
 

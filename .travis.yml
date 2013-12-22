@@ -13,8 +13,8 @@ env:
 install:
  - sudo apt-get update
  - sudo apt-get install ruby1.8 ruby1.8-dev irb rdoc ri --fix-missing
- - sudo gem install sass
- - sudo gem install compass
+ - gem install sass
+ - gem install compass
  - pip install -r requirements.txt -y --use-mirrors
  - pip install coverage coveralls
  - pip install $DJANGO

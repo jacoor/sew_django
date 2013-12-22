@@ -6,8 +6,8 @@ Sew django
    :target: https://travis-ci.org/jacoor/sew_django
 
 
-.. image:: https://coveralls.io/repos/jacoor/sew_django/badge.png
-   :target: https://coveralls.io/r/jacoor/sew_django
+.. image:: https://coveralls.io/repos/jacoor/sew_django/badge.png?branch=develop
+  :target: https://coveralls.io/r/jacoor/sew_django?branch=develop
 
 
 .. contents::

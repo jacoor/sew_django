@@ -105,8 +105,17 @@ Create the static
 
 Launching
 =========
-`python sass.py` - this makes sass watch for scss file change, thus enabling live css reload
-`./manage.py runserver`
+
+this makes sass watch for scss file change, thus enabling live css reload
+
+:: 
+
+ python sass.py
+
+
+::
+
+./manage.py runserver
 
 
 Git Flow

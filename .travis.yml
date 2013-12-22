@@ -11,7 +11,7 @@ env:
   - DJANGO=https://github.com/django/django/archive/master.zip  
 
 install:
- - sudo apt-get install ruby
+ - sudo apt-get install ruby irb rdoc ri
  - sudo gem install sass
  - sudo gem install compass
  - pip install -r requirements.txt --use-mirrors

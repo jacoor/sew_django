@@ -67,7 +67,7 @@ class ProfileTests(TestCase):
 
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, 
-            u"Wprowadź poprawną nazwę użytkownika lub adres email.")
+            u"Wprowadź poprawny numer PESEL lub adres email.")
 
     def test_invalid_login(self):
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})

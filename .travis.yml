@@ -11,13 +11,12 @@ env:
   - DJANGO=https://github.com/django/django/archive/master.zip  
 
 install:
- - pip install -r requirements/external_apps.txt --use-mirrors
- - pip install -r requirements/extra_apps.txt --use-mirrors
+ - pip install -r requirements.txt --use-mirrors
  - pip install coverage coveralls
  - pip install $DJANGO
 
-script:
-  - coverage run --source=basic_cms setup.py test
+#script:
+#  - coverage run --source=basic_cms setup.py test
 
 matrix:
   exclude:
@@ -25,7 +24,7 @@ matrix:
       env: DJANGO="django==1.4.2 --use-mirrors"
 
 after_success:
-  - coverage report --omit="basic_cms/tests/*" -m
+#  - coverage report --omit="basic_cms/tests/*" -m
   - coveralls
 
 notifications:

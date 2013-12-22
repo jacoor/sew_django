@@ -8,7 +8,7 @@ python:
 env:
   - DJANGO="django==1.6.1 --use-mirrors"
   - DJANGO="django==1.6 --use-mirrors"
-  - DJANGO=https://github.com/django/django/archive/master.zip  
+ # - DJANGO=https://github.com/django/django/archive/master.zip  
 
 install:
  - sudo apt-get update

@@ -17,11 +17,13 @@ def setup_view(view, request, *args, **kwargs):
 
 
 class ProfileTests(TestCase):
+    PESEL=''
 
     def setUp(self):
         self.user = Profile.objects.create(first_name='Joe',
                                             username ='joe',
                                             email='joe@doe.com',
+                                            pesel=PESEL,
                                             is_active=False)
         self.user.set_password('dump-password')
         self.user.save()
@@ -85,6 +87,11 @@ class ProfileTests(TestCase):
     def test_login_by_email(self):
         self.activate_user()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+
+    def test_login_by_pesel(self):
+        self.activate_user()
+        response = self.client.post("/", {'login-password':'dump-password','login-username':self.PESEL})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
         
     def test_recover_password_step1(self):

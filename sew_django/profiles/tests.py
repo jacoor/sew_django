@@ -26,6 +26,12 @@ class ProfileTests(TestCase):
         self.user.set_password('dump-password')
         self.user.save()
 
+    def activate_user(self):
+        self.user.is_active = True
+        self.user.is_superuser = True
+        self.user.save()
+
+
     def test_index(self):
         #request = RequestFactory().get(reverse('index'))
         c = Client()
@@ -61,19 +67,23 @@ class ProfileTests(TestCase):
         self.assertFormError(response, 'login_form', None, 
             u"Wprowadź poprawną nazwę użytkownika lub adres email.")
 
+    def test_invalid_login(self):
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
         self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')
 
-        self.user.is_active = True
-        self.user.is_superuser = True
-        self.user.save()
+    def test_login_and_redirect(self):
+        self.activate_user()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe', \
             'next' :'none/'})
         self.assertRedirects(response, '/none/', status_code=302, target_status_code=404)
-        
+
+    def test_login_by_username(self):
+        self.activate_user()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
 
+    def test_login_by_email(self):
+        self.activate_user()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
         

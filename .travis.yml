@@ -15,8 +15,8 @@ install:
  - pip install coverage coveralls
  - pip install $DJANGO
 
-#script:
-#  - coverage run --source=basic_cms setup.py test
+script:
+  - coverage run --source='.' manage.py test sew_django
 
 #matrix:
 #  exclude:

@@ -23,9 +23,7 @@ before_script:
   - python manage.py compress
 
 script:
-#  - coverage run --source='.' manage.py test sew_django
  - coverage run --source=sew_django manage.py test
-#  - coverage run --source=django_sew manage.py test django_sew
 
 #matrix:
 #  exclude:
@@ -33,7 +31,7 @@ script:
 #      env: DJANGO="django==1.4.2 --use-mirrors"
 
 after_success:
-#  - coverage report --omit="basic_cms/tests/*" -m
+  - coverage report
   - coveralls
 
 notifications:

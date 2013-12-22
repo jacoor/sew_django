@@ -72,9 +72,9 @@ Upon successful completion of the installation initialize the database. (NOTE: d
 Get Sass (OSX. for linux you need to do your own research :P )
 
 ::
+
     sudo gem install sass
     sudo gem install compass
-    sudo gem install bourbon
 
 Be sure to have INTERNAL_IPS = (
     "127.0.0.1",

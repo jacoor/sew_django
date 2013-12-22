@@ -11,6 +11,8 @@ env:
   - DJANGO=https://github.com/django/django/archive/master.zip  
 
 install:
+ - sudo gem install sass
+ - sudo gem install compass
  - pip install -r requirements.txt --use-mirrors
  - pip install coverage coveralls
  - pip install $DJANGO

@@ -17,13 +17,13 @@ def setup_view(view, request, *args, **kwargs):
 
 
 class ProfileTests(TestCase):
-    PESEL=''
+    PESEL=84111508709
 
     def setUp(self):
         self.user = Profile.objects.create(first_name='Joe',
                                             username ='joe',
                                             email='joe@doe.com',
-                                            pesel=PESEL,
+                                            pesel=self.PESEL,
                                             is_active=False)
         self.user.set_password('dump-password')
         self.user.save()

@@ -55,6 +55,7 @@ PROJECT_APPS = (
 
 AUTHENTICATION_BACKENDS = (
     'sew_django.profiles.backends.EmailAuthBackend.EmailAuthBackend',
+    'sew_django.profiles.backends.PeselAuthBackend.PeselAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -74,6 +75,8 @@ INSTALLED_APPS = (
     'filebrowser',
     'django.contrib.admin',
     'passwords',
+    'localflavor',
+    'pyflakes',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (

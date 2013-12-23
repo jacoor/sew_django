@@ -29,5 +29,5 @@ class UserAdminCreationForm(UserCreationForm):
 class AuthenticationForm(DjangoAuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(AuthenticationForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = u"Nazwa użytkownika lub adres email"
-        self.error_messages['invalid_login'] = _(u"Wprowadź poprawną nazwę użytkownika lub adres email.")
+        self.fields['username'].label = u"Numer PESEL lub adres email"
+        self.error_messages['invalid_login'] = _(u"Wprowadź poprawny numer PESEL lub adres email.")

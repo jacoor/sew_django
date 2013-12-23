@@ -17,11 +17,14 @@ def setup_view(view, request, *args, **kwargs):
 
 
 class ProfileTests(TestCase):
+    CORRECT_PESEL=84111508709
+    INVALID_PESEL=1111111
 
     def setUp(self):
         self.user = Profile.objects.create(first_name='Joe',
                                             username ='joe',
                                             email='joe@doe.com',
+                                            pesel=self.CORRECT_PESEL,
                                             is_active=False)
         self.user.set_password('dump-password')
         self.user.save()
@@ -65,7 +68,7 @@ class ProfileTests(TestCase):
 
         response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, 
-            u"Wprowadź poprawną nazwę użytkownika lub adres email.")
+            u"Wprowadź poprawny numer PESEL lub adres email.")
 
     def test_invalid_login(self):
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
@@ -85,6 +88,11 @@ class ProfileTests(TestCase):
     def test_login_by_email(self):
         self.activate_user()
         response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+
+    def test_login_by_pesel(self):
+        self.activate_user()
+        response = self.client.post("/", {'login-password':'dump-password','login-username':self.CORRECT_PESEL})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
         
     def test_recover_password_step1(self):

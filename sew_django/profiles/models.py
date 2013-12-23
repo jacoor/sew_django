@@ -9,10 +9,10 @@ from sew_django.profiles.fields import PLPESELModelField
 class ProfileManager(BaseUserManager):
     def create_user(self, email=None, password=None, **extra_fields):
         if not email:
-            raise ValueError('The given email must be set')
+            raise ValueError(_(u'The given email must be set'))
         email = ProfileManager.normalize_email(email)
         user = self.model(email=email,
-                          is_staff=False, is_active=True, is_superuser=False,
+                          is_staff=False, is_superuser=False,
                           **extra_fields)
 
         user.set_password(password)

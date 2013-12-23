@@ -29,6 +29,15 @@ class ProfileTests(TestCase):
         self.user.set_password('dump-password')
         self.user.save()
 
+    def test_create_user(self):
+        user = Profile.objects.create_user(first_name='Joe',
+                                            username ='joe1',
+                                            email='joe1@doe.com',
+                                            pesel=self.INVALID_PESEL,
+                                            is_active=False)
+        user.set_password('dump-password')
+        user.save()
+
     def activate_user(self):
         self.user.is_active = True
         self.user.is_superuser = True

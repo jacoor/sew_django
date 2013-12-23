@@ -18,6 +18,7 @@ def setup_view(view, request, *args, **kwargs):
 
 class ProfileTests(TestCase):
     CORRECT_PESEL=84111508709
+    CORRECT_PESEL_1=81101507348
     INVALID_PESEL=1111111
 
     def setUp(self):
@@ -28,22 +29,35 @@ class ProfileTests(TestCase):
                                             is_active=False)
         self.user.set_password('dump-password')
         self.user.save()
-
-    def test_create_user(self):
-        user = Profile.objects.create_user(first_name='Joe',
-                                            username ='joe1',
-                                            email='joe1@doe.com',
-                                            pesel=self.INVALID_PESEL,
-                                            is_active=False)
-        user.set_password('dump-password')
-        user.save()
-
+    
     def activate_user(self):
         self.user.is_active = True
         self.user.is_superuser = True
         self.user.save()
 
+    def test_create_user(self):
+        user = Profile.objects.create_user(first_name='Joe',
+                                            username ='joe1',
+                                            email='joe1@doe.com',
+                                            pesel=self.CORRECT_PESEL_1,
+                                            is_active=False)
+        user.set_password('dump-password')
+        user.save()
 
+        verify_user = Profile.objects.get_by_email('joe1@doe.com')
+        self.assertEqual(verify_user.username, user.username)
+
+    def test_create_user_wo_email(self):
+
+        with self.assertRaises(ValueError) as cm:
+            user = Profile.objects.create_user(first_name='Joe',
+                                                username ='joe2',
+                                                pesel=self.CORRECT_PESEL_1,
+                                                is_active=False)
+            user.set_password('dump-password')
+            
+            user.save()
+            
     def test_index(self):
         #request = RequestFactory().get(reverse('index'))
         c = Client()

@@ -9,7 +9,7 @@ class PeselAuthBackend(ModelBackend):
         if username is None:
             username = kwargs.get('pesel')
         try:
-            user = UserModel._default_manager.get_by_pesell(username)
+            user = UserModel._default_manager.get_by_pesel(username)
             if user.check_password(password):
                 return user
         except UserModel.DoesNotExist:

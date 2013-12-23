@@ -19,6 +19,7 @@ def setup_view(view, request, *args, **kwargs):
 class ProfileTests(TestCase):
     CORRECT_PESEL=84111508709
     CORRECT_PESEL_1=81101507348
+    CORRECT_PESEL_2='02280710383'
     INVALID_PESEL=1111111
 
     def setUp(self):
@@ -26,7 +27,8 @@ class ProfileTests(TestCase):
                                             username ='joe',
                                             email='joe@doe.com',
                                             pesel=self.CORRECT_PESEL,
-                                            is_active=False)
+                                            is_active=False,
+                                            )
         self.user.set_password('dump-password')
         self.user.save()
     
@@ -40,11 +42,20 @@ class ProfileTests(TestCase):
                                             username ='joe1',
                                             email='joe1@doe.com',
                                             pesel=self.CORRECT_PESEL_1,
-                                            is_active=False)
+                                            is_active=False,
+                                            )
         user.set_password('dump-password')
-        user.save()
 
         verify_user = Profile.objects.get_by_email('joe1@doe.com')
+        self.assertEqual(verify_user.username, user.username)
+
+    def test_create_super_user(self):
+        user = Profile.objects.create_superuser(
+                                            email='joe2@doe.com',
+                                            password='dump-password',
+                                            )
+
+        verify_user = Profile.objects.get_by_email('joe2@doe.com')
         self.assertEqual(verify_user.username, user.username)
 
     def test_create_user_wo_email(self):
@@ -53,11 +64,12 @@ class ProfileTests(TestCase):
             user = Profile.objects.create_user(first_name='Joe',
                                                 username ='joe2',
                                                 pesel=self.CORRECT_PESEL_1,
-                                                is_active=False)
+                                                is_active=False,
+                                                )
             user.set_password('dump-password')
             
             user.save()
-            
+
     def test_index(self):
         #request = RequestFactory().get(reverse('index'))
         c = Client()

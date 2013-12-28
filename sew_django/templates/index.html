@@ -29,11 +29,13 @@
             </form>
         {% endblock %}
         {% block pesel_form %}
-            <form action="{% url "register" %}" class="{% block pesel_form_class%} large-6 columns{% endblock %}">
+            <form action="{% url "register" %}" method="post" class="{% block pesel_form_class%} large-6 columns{% endblock %}">
                 <fieldset class="mh300">
                     <legend>{% block pesel_form_legend %}Aby rozpocząć rejestrację, podaj swój numer PESEL{% endblock %}</legend>
                     {% csrf_token %}
-                    <input type="hidden" name="check_pesel" value="1">
+                    {%  for f in pesel_form.hidden_fields%}
+                        {{f}}
+                    {% endfor %}
                     {% if pesel_form.non_field_errors %}
                         <ul class="errors no-bullet">
                             {% for e in pesel_form.non_field_errors %}
@@ -42,7 +44,7 @@
                         </ul>
                     {% endif %}
                     <ul class="form-list no-bullet clearfix">
-                        {% for f in pesel_form %}
+                        {% for f in pesel_form.visible_fields %}
                             {% include "inc/forms/form_as_ul.html" with f=f %}
                         {% endfor %}
                         <li>

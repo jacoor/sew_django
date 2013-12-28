@@ -83,7 +83,6 @@ class RegisterView(IndexView):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
-        redirect_to = self.check_redirect(context)
 
         if request.method == "POST":
             pesel_form = PeselForm(

@@ -3,6 +3,8 @@ from django.test import TestCase, RequestFactory, SimpleTestCase
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 
+from django.conf import settings
+
 from sew_django.profiles.models import Profile
 #from sew_django.profiles.views import Index
 
@@ -35,7 +37,6 @@ class ProfileTests(TestCase):
     
     def activate_user(self):
         self.user.is_active = True
-        self.user.is_superuser = True
         self.user.save()
 
     def test_create_user(self):
@@ -58,6 +59,7 @@ class ProfileTests(TestCase):
 
         verify_user = Profile.objects.get_by_email('joe2@doe.com')
         self.assertEqual(verify_user.username, user.username)
+
 
     def test_create_user_wo_email(self):
 
@@ -120,6 +122,30 @@ class ProfileTests(TestCase):
         response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe', \
             'next' :'/none/'})
         self.assertRedirects(response, '/none/', status_code=302, target_status_code=404)
+
+    def test_admin_login_redirect(self):
+        user = Profile.objects.create_superuser(
+                                            email='joe2@doe.com',
+                                            password='dump-password',
+                                            )
+        
+        user.is_active = True
+        user.save()
+        response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe2@doe.com',})
+        self.assertRedirects(response, settings.ADMIN_LOGIN_REDIRECT_URL, status_code=302, target_status_code=200)
+
+    def test_different_domain_redirect(self):
+        user = Profile.objects.create_superuser(
+                                            email='joe2@doe.com',
+                                            password='dump-password',
+                                            )
+        
+        user.is_active = True
+        user.save()
+        response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe2@doe.com', 
+            'next' : 'http://onet.pl/'})
+        print response
+        self.assertRedirects(response, settings.ADMIN_LOGIN_REDIRECT_URL, status_code=302, target_status_code=200)
 
     def test_login_by_username(self):
         self.activate_user()

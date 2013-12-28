@@ -38,7 +38,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     photo = models.ImageField(u'zdjęcie', upload_to=settings.MEDIA_ROOT+'photos', null=True) 
     pesel = PLPESELModelField('PESEL', unique=True, max_length=11, db_index=True)
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
-    email = models.EmailField('adres email', max_length=110, db_index=True, unique=True)
+    email = models.EmailField('adres email', max_length=255, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)

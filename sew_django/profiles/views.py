@@ -68,10 +68,14 @@ class LoginView(IndexView):
                 data=request.POST,
             )
             if login_form.is_valid():
-                auth_login(request, login_form.get_user())
+                user = login_form.get_user()
+                auth_login(request, user)
                 if request.session.test_cookie_worked():
                     request.session.delete_test_cookie()
-                response = HttpResponseRedirect(redirect_to)
+                if user.is_staff and redirect_to == settings.LOGIN_REDIRECT_URL:
+                    response = HttpResponseRedirect(settings.ADMIN_LOGIN_REDIRECT_URL)
+                else:
+                    response = HttpResponseRedirect(redirect_to)
                 return response
             context['login_form'] = login_form
 

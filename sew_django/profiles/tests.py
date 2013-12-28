@@ -124,17 +124,17 @@ class ProfileTests(TestCase):
     def test_login_by_username(self):
         self.activate_user()
         response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe'})
-        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+        self.assertRedirects(response, '/profil/', status_code=302, target_status_code=200)
 
     def test_login_by_email(self):
         self.activate_user()
         response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe@doe.com'})
-        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+        self.assertRedirects(response, '/profil/', status_code=302, target_status_code=200)
 
     def test_login_by_pesel(self):
         self.activate_user()
         response = self.client.post("/login/", {'login-password':'dump-password','login-username':self.CORRECT_PESEL})
-        self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
+        self.assertRedirects(response, '/profil/', status_code=302, target_status_code=200)
         
     def test_recover_password_step1(self):
         response = self.client.get("/reset_password/")

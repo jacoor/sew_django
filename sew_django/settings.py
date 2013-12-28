@@ -17,7 +17,8 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 project = lambda: os.path.dirname(os.path.realpath(__file__))
 location = lambda x: os.path.join(str(project()), str(x))
 
-LOGIN_REDIRECT_URL="/admin/"
+LOGIN_REDIRECT_URL="/profil/"
+ADMIN_LOGIN_REDIRECT_URL="/admin/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/

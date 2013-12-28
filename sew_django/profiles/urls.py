@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r"^$", IndexView.as_view(), name='index'),
     url(r"^login/$", LoginView.as_view(), name='login'),
     url(r"^logout/$", LogoutView.as_view(), name="logout"),
+    url(r"^profil/$", TemplateView.as_view(template_name="profil.html"), name="profil"),
     url(r"^rejestracja-wolontariusza/$", RegisterView.as_view(), name='register'),
     url(r'^reset_password/$', password_reset,{'template_name': 'password/reset.html'}, name="password_reset"),
     url(r'^password_reset_done/$', password_reset_done, {'template_name' : 'password/reset_done.html'}, \

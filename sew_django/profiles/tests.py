@@ -157,6 +157,7 @@ class ProfileTests(TestCase):
 
     def test_pesel_form_view(self):
         c = Client()
-        response = c.get('/pesel/')
+        response = c.get('/rejestracja-wolontariusza/')
+        #w/o pesel should show pesel form
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'pesel.html')

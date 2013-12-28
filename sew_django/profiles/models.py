@@ -35,7 +35,6 @@ class ProfileManager(BaseUserManager):
         return self.get(**{'pesel': username})
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    PeselValidators = ()
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=110, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100, blank=True)

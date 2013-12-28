@@ -2,8 +2,8 @@
 {% block content %}
     <div class="row">
         {% block login_form %}
-            <form action="{% url "login" %}" method="post" class="{% block login_form_class%} large-6 columns mh340{% endblock %}">
-                <fieldset>
+            <form action="{% url "login" %}" method="post" class="{% block login_form_class%} large-6 columns{% endblock %}">
+                <fieldset class="mh300">
                     <legend>{% block login_legend %}Jeśli posiadasz konto, zaloguj się{% endblock %}</legend>
                     {% csrf_token %}
                     <input type="hidden" name="next">
@@ -29,9 +29,11 @@
             </form>
         {% endblock %}
         {% block pesel_form %}
-            <form action="{% url "pesel" %}" class="{% block pesel_form_class%} large-6 columns mh340{% endblock %}">
-                <fieldset>
+            <form action="{% url "register" %}" class="{% block pesel_form_class%} large-6 columns{% endblock %}">
+                <fieldset class="mh300">
                     <legend>{% block pesel_form_legend %}Aby rozpocząć rejestrację, podaj swój numer PESEL{% endblock %}</legend>
+                    {% csrf_token %}
+                    <input type="hidden" name="check_pesel" value="1">
                     {% if pesel_form.non_field_errors %}
                         <ul class="errors no-bullet">
                             {% for e in pesel_form.non_field_errors %}

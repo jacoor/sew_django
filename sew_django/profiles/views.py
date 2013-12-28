@@ -78,7 +78,7 @@ class LoginView(IndexView):
         self.request.session.set_test_cookie()
         return self.render_to_response(context)
 
-class PeselView(IndexView):
+class RegisterView(IndexView):
     template_name = "pesel.html"
 
     def post(self, request, *args, **kwargs):

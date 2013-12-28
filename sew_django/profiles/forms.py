@@ -31,3 +31,8 @@ class AuthenticationForm(DjangoAuthenticationForm):
         super(AuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = _(u"Numer PESEL lub adres email")
         self.error_messages['invalid_login'] = _(u"Wprowadź poprawny numer PESEL lub adres email.")
+
+class PeselForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['pesel',]

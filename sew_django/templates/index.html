@@ -1,28 +1,32 @@
 {% extends "base.html" %}
 {% block proper_content %}
-    <form action="." method="post">
-        <fieldset>
-            <legend>Jeśli posiadasz konto, zaloguj się</legend>
-            {% csrf_token %}
-            <input type="hidden" name="next">
-            {% if login_form.non_field_errors %}
-                <ul class="errors no-bullet">
-                    {% for e in login_form.non_field_errors %}
-                        <li><label class="error">{{e}}</label></li>
-                    {% endfor %}
+    {% block login_form %}
+        <form action="." method="post">
+            <fieldset>
+                <legend>Jeśli posiadasz konto, zaloguj się</legend>
+                {% csrf_token %}
+                <input type="hidden" name="next">
+                {% if login_form.non_field_errors %}
+                    <ul class="errors no-bullet">
+                        {% for e in login_form.non_field_errors %}
+                            <li><label class="error">{{e}}</label></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <ul class="form-list no-bullet clearfix">
+                    {% block form_fields_list %}
+                        {% for f in login_form %}
+                            {% include "inc/forms/form_as_ul.html" with f=f %}
+                        {% endfor %}
+                    {% endblock form_fields_list %}
+                    <li>
+                        <a href="{% url "password_reset" %}" class="left">Zapomniałem hasła</a>
+                        <span class="right"><button class="tiny radius">Wyślij</button></span>
+                    </li>
                 </ul>
-            {% endif %}
-            <ul class="form-list no-bullet clearfix">
-                {% block form_fields_list %}
-                    {% for f in login_form %}
-                        {% include "inc/forms/form_as_ul.html" with f=f %}
-                    {% endfor %}
-                {% endblock form_fields_list %}
-                <li>
-                    <a href="{% url "password_reset" %}" class="left">Zapomniałem hasła</a>
-                    <span class="right"><button class="tiny radius">Wyślij</button></span>
-                </li>
-            </ul>
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
+    {% endblock %}
+    {% block pesel_form %}
+    {% endblock %}
 {% endblock %}

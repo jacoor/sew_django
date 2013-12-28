@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from sew_django.profiles.forms import AuthenticationForm
+from sew_django.profiles.forms import AuthenticationForm, PeselForm
 
 from sew_django.profiles.models import Profile
 #from sew_django.emails.send import send_email
@@ -26,13 +26,14 @@ class IndexView(TemplateView):
     redirect_field_name = 'next'
     template_name = 'index.html'
     login_prefix = 'login'
-    auto_id = False  # removes labels
+    pesel_prefix = 'pesel'
 
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
         redirect_to = self.request.REQUEST.get(self.redirect_field_name, '')
         context[self.redirect_field_name] = redirect_to
-        context['login_form'] = AuthenticationForm(prefix=self.login_prefix, auto_id=self.auto_id)
+        context['login_form'] = AuthenticationForm(prefix=self.login_prefix)
+        context['pesel_form'] = PeselForm(prefix=self.pesel_prefix)
         return context
 
     def check_redirect(self, context):
@@ -46,6 +47,12 @@ class IndexView(TemplateView):
 
         return redirect_to
 
+        #add post, to check pesel and only pesel. if pesel in system - login form. If pesel not in system, continue registration.
+        # if pesel wrong - single page with pesel. 
+
+def LoginView(IndexView):
+    template_name = 'login.html'
+    
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
         redirect_to = self.check_redirect(context)
@@ -54,7 +61,6 @@ class IndexView(TemplateView):
             login_form = AuthenticationForm(
                 prefix=self.login_prefix,
                 data=request.POST,
-                auto_id=self.auto_id
             )
             if login_form.is_valid():
                 auth_login(request, login_form.get_user())

@@ -150,3 +150,8 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'password/reset_complete.html')
 
+    def test_login_view(self):
+        response = self.client.get('/login/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'login.html')
+

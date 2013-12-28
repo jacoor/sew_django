@@ -35,6 +35,7 @@ class IndexView(TemplateView):
 
         #add post, to check pesel and only pesel. if pesel in system - login form. If pesel not in system, continue registration.
         # if pesel wrong - single page with pesel. 
+        # or throw it into some dispatcher function, which might be quite good. 
 
 class LoginView(IndexView):
     template_name = 'login.html'
@@ -75,4 +76,24 @@ class LoginView(IndexView):
             context['login_form'] = login_form
 
         self.request.session.set_test_cookie()
+        return self.render_to_response(context)
+
+class PeselView(IndexView):
+    template_name = "pesel.html"
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(*args, **kwargs)
+        redirect_to = self.check_redirect(context)
+
+        if request.method == "POST":
+            pesel_form = PeselForm(
+                prefix=self.pesel_prefix,
+                data=request.POST,
+            )
+            if pesel_form.is_valid():
+                #redirect to register step2 with initial pesel filled
+                response = HttpResponseRedirect(redirect_to)
+                return response
+            context['pesel_form'] = pesel_form
+
         return self.render_to_response(context)

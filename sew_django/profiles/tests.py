@@ -155,4 +155,8 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'password/reset_complete.html')
 
-
+    def test_pesel_form_view(self):
+        c = Client()
+        response = c.get('/pesel/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'pesel.html')

@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     'passwords',
     'localflavor',
     'pyflakes',
+    'sorl.thumbnail',
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (

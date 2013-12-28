@@ -44,6 +44,7 @@
     </nav>
     <div class="row">
         {% block content %}
+            {% block above_proper_content %}{% endblock %}
             <div class="columns large-12">
                 {% block proper_content %}{% endblock %}
             </div>

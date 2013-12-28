@@ -183,7 +183,7 @@ FILEBROWSER_URL_TINYMCE = STATIC_URL + "tiny_mce/"
 FILEBROWSER_PATH_TINYMCE = STATIC_URL + "tiny_mce/"
 
 FILEBROWSER_VERSIONS = {
-                      'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+                      'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 120, 'height': 120, 'opts': 'crop'},
                       }
 FILEBROWSER_ADMIN_VERSIONS = []
 FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'

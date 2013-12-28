@@ -4,6 +4,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+from sorl.thumbnail import ImageField
+
 from sew_django.profiles.fields import PLPESELModelField, PLPostalCodeModelField
 # Create your models here.
 
@@ -35,7 +37,7 @@ class ProfileManager(BaseUserManager):
         return self.get(**{'pesel': username})
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    photo = models.ImageField(u'zdjęcie', upload_to='photos', null=True, blank=True) 
+    photo = ImageField(u'zdjęcie', upload_to='photos', null=True, blank=True) 
     pesel = PLPESELModelField('PESEL', unique=True, max_length=11, db_index=True)
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=255, db_index=True, unique=True)

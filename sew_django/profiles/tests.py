@@ -21,6 +21,7 @@ class ProfileTests(TestCase):
     CORRECT_PESEL_1=81101507348
     CORRECT_PESEL_2='02280710383'
     INVALID_PESEL=1111111
+    INVALID_PESEL_2='02280710382'
 
     def setUp(self):
         self.user = Profile.objects.create(first_name='Joe',
@@ -162,3 +163,14 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register/step_1_pesel.html')
 
+    def test_register_step_1_empty(self):
+        response = self.client.post("/rejestracja-wolontariusza/", {})
+        self.assertFormError(response, 'pesel_form', 'pesel', 'To pole jest wymagane.')
+
+    def test_register_step_1_invalid(self):
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':'xxx'})
+        self.assertFormError(response, 'pesel_form', 'pesel', u'Numer PESEL składa się z 11 cyfr.')
+       
+    def test_register_step_1_invalid(self):
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.INVALID_PESEL_2})
+        self.assertFormError(response, 'pesel_form', 'pesel', u'Błędna suma kontrolna numeru PESEL.')

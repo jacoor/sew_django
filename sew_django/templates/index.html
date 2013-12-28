@@ -1,55 +1,57 @@
 {% extends "base.html" %}
-{% block proper_content %}
-    {% block login_form %}
-        <form action="{% url "login" %}" method="post">
-            <fieldset>
-                <legend>{% block login_legend %}Jeśli posiadasz konto, zaloguj się{% endblock %}</legend>
-                {% csrf_token %}
-                <input type="hidden" name="next">
-                {% if login_form.non_field_errors %}
-                    <ul class="errors no-bullet">
-                        {% for e in login_form.non_field_errors %}
-                            <li><label class="error">{{e}}</label></li>
+{% block content %}
+    <div class="row">
+        {% block login_form %}
+            <form action="{% url "login" %}" method="post" class="{% block login_form_class%} large-6 columns mh340{% endblock %}">
+                <fieldset>
+                    <legend>{% block login_legend %}Jeśli posiadasz konto, zaloguj się{% endblock %}</legend>
+                    {% csrf_token %}
+                    <input type="hidden" name="next">
+                    {% if login_form.non_field_errors %}
+                        <ul class="errors no-bullet">
+                            {% for e in login_form.non_field_errors %}
+                                <li><label class="error">{{e}}</label></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <ul class="form-list no-bullet clearfix">
+                        {% for f in login_form %}
+                            {% include "inc/forms/form_as_ul.html" with f=f %}
                         {% endfor %}
+                        <li>
+                            <a href="{% url "password_reset" %}" class="left">Zapomniałem hasła</a>
+                            <span class="right"><button class="tiny radius">Wyślij</button></span>
+                        </li>
+                        {% block below_login_form %}
+                        {% endblock %}
                     </ul>
-                {% endif %}
-                <ul class="form-list no-bullet clearfix">
-                    {% for f in login_form %}
-                        {% include "inc/forms/form_as_ul.html" with f=f %}
-                    {% endfor %}
-                    <li>
-                        <a href="{% url "password_reset" %}" class="left">Zapomniałem hasła</a>
-                        <span class="right"><button class="tiny radius">Wyślij</button></span>
-                    </li>
-                    {% block below_login_form %}
-                    {% endblock %}
-                </ul>
-            </fieldset>
-        </form>
-    {% endblock %}
-    {% block pesel_form %}
-        <form action="{% url "pesel" %}">
-            <fieldset>
-                <legend>{% block pesel_form_legend %}Aby rozpocząć rejestrację, podaj swój numer PESEL{% endblock %}</legend>
-                {% if pesel_form.non_field_errors %}
-                    <ul class="errors no-bullet">
-                        {% for e in pesel_form.non_field_errors %}
-                            <li><label class="error">{{e}}</label></li>
+                </fieldset>
+            </form>
+        {% endblock %}
+        {% block pesel_form %}
+            <form action="{% url "pesel" %}" class="{% block pesel_form_class%} large-6 columns mh340{% endblock %}">
+                <fieldset>
+                    <legend>{% block pesel_form_legend %}Aby rozpocząć rejestrację, podaj swój numer PESEL{% endblock %}</legend>
+                    {% if pesel_form.non_field_errors %}
+                        <ul class="errors no-bullet">
+                            {% for e in pesel_form.non_field_errors %}
+                                <li><label class="error">{{e}}</label></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <ul class="form-list no-bullet clearfix">
+                        {% for f in pesel_form %}
+                            {% include "inc/forms/form_as_ul.html" with f=f %}
                         {% endfor %}
+                        <li>
+                            {% block pesel_form_next_to_send %}{% endblock %}
+                            <span class="right"><button class="tiny radius">Wyślij</button></span>
+                        </li>
+                        {% block below_pesel_form %}
+                        {% endblock %}
                     </ul>
-                {% endif %}
-                <ul class="form-list no-bullet clearfix">
-                    {% for f in pesel_form %}
-                        {% include "inc/forms/form_as_ul.html" with f=f %}
-                    {% endfor %}
-                    <li>
-                        {% block pesel_form_next_to_send %}{% endblock %}
-                        <span class="right"><button class="tiny radius">Wyślij</button></span>
-                    </li>
-                    {% block below_pesel_form %}
-                    {% endblock %}
-                </ul>
-            </fieldset>
-        </form>
-    {% endblock %}
+                </fieldset>
+            </form>
+        {% endblock %}
+    </div>
 {% endblock %}

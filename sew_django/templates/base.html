@@ -20,7 +20,7 @@
         <script src="{{STATIC_URL}}libs/foundation-5.0.2/js/vendor/custom.modernizr.js"></script>
     {% endcompress %}
 </head>
-<body>
+<body class="{%block bodyClass %}{% endblock%}">
     <nav class="top-bar" data-topbar>
         <ul class="title-area">
             <li class="name">

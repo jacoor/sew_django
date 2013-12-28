@@ -41,7 +41,6 @@ def deploy(full=False, libs=False, migrate=False):
         sudo('find . -name "*.pyc" -delete', user=user)
         if full or libs:
             sudo(pip + ' install -r requirements.txt', user=user)
-            sudo('npm install', user=user)
             sudo('find /home/%s/Envs/%s/ -name "*.pyc" -delete' % (user, environment), user=user)
         if full or migrate:
             sudo(python + ' manage.py syncdb', user=user)

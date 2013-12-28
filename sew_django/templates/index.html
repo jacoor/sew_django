@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block proper_content %}
     {% block login_form %}
-        <form action="." method="post">
+        <form action="{% url "login" %}" method="post">
             <fieldset>
                 <legend>Jeśli posiadasz konto, zaloguj się</legend>
                 {% csrf_token %}

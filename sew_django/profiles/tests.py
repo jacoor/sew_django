@@ -76,6 +76,11 @@ class ProfileTests(TestCase):
         response = c.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
+    
+    def test_login_view(self):
+        response = self.client.get('/login/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'login.html')
 
     def test_logout(self):
         response = self.client.get('/logout/')
@@ -91,43 +96,43 @@ class ProfileTests(TestCase):
         self.assertEqual(response, True)
 
     def test_login_form_view(self):
-        response = self.client.post("/", {})
+        response = self.client.post("/login/", {})
         self.assertFormError(response, 'login_form', 'password', 'To pole jest wymagane.')
         self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
 
-        response = self.client.post("/", {'login-username':'xxx'})
+        response = self.client.post("/login/", {'login-username':'xxx'})
         self.assertFormError(response, 'login_form', 'password', 'To pole jest wymagane.')
         
-        response = self.client.post("/", {'login-password':'xxx'})
+        response = self.client.post("/login/", {'login-password':'xxx'})
         self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
 
-        response = self.client.post("/", {'login-password':'xxx','login-username':'xxx'})
+        response = self.client.post("/login/", {'login-password':'xxx','login-username':'xxx'})
         self.assertFormError(response, 'login_form', None, 
             u"Wprowadź poprawny numer PESEL lub adres email.")
 
     def test_invalid_login(self):
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
+        response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe'})
         self.assertFormError(response, 'login_form', None, 'To konto jest nieaktywne.')
 
     def test_login_and_redirect(self):
         self.activate_user()
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe', \
-            'next' :'none/'})
+        response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe', \
+            'next' :'/none/'})
         self.assertRedirects(response, '/none/', status_code=302, target_status_code=404)
 
     def test_login_by_username(self):
         self.activate_user()
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe'})
+        response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
 
     def test_login_by_email(self):
         self.activate_user()
-        response = self.client.post("/", {'login-password':'dump-password','login-username':'joe@doe.com'})
+        response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe@doe.com'})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
 
     def test_login_by_pesel(self):
         self.activate_user()
-        response = self.client.post("/", {'login-password':'dump-password','login-username':self.CORRECT_PESEL})
+        response = self.client.post("/login/", {'login-password':'dump-password','login-username':self.CORRECT_PESEL})
         self.assertRedirects(response, '/admin/', status_code=302, target_status_code=200)
         
     def test_recover_password_step1(self):
@@ -150,8 +155,4 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'password/reset_complete.html')
 
-    def test_login_view(self):
-        response = self.client.get('/login/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'login.html')
 

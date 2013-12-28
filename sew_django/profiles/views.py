@@ -29,8 +29,6 @@ class IndexView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
-        redirect_to = self.request.REQUEST.get(self.redirect_field_name, '')
-        context[self.redirect_field_name] = redirect_to
         context['login_form'] = AuthenticationForm(prefix=self.login_prefix)
         context['pesel_form'] = PeselForm(prefix=self.pesel_prefix)
         return context
@@ -41,6 +39,12 @@ class IndexView(TemplateView):
 class LoginView(IndexView):
     template_name = 'login.html'
     redirect_field_name = 'next'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(LoginView, self).get_context_data(*args, **kwargs)
+        redirect_to = self.request.REQUEST.get(self.redirect_field_name, '')
+        context[self.redirect_field_name] = redirect_to
+        return context
 
     def check_redirect(self, context):
         redirect_to = context.get(self.redirect_field_name)

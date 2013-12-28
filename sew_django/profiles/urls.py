@@ -12,7 +12,7 @@ from sew_django.profiles.forms import ValidatingSetPasswordForm
 
 urlpatterns = patterns('',
     url(r"^$", IndexView.as_view(), name='index'),
-    url(r"^$", LoginView.as_view(), name='login'),
+    url(r"^login/$", LoginView.as_view(), name='login'),
     url(r"^logout/$", LogoutView.as_view(), name="logout"),
     url(r'^reset_password/$', password_reset,{'template_name': 'password/reset.html'}, name="password_reset"),
     url(r'^password_reset_done/$', password_reset_done, {'template_name' : 'password/reset_done.html'}, \

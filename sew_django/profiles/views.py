@@ -23,7 +23,6 @@ class LogoutView(RedirectView):
 
 
 class IndexView(TemplateView):
-    redirect_field_name = 'next'
     template_name = 'index.html'
     login_prefix = 'login'
     pesel_prefix = 'pesel'
@@ -36,6 +35,13 @@ class IndexView(TemplateView):
         context['pesel_form'] = PeselForm(prefix=self.pesel_prefix)
         return context
 
+        #add post, to check pesel and only pesel. if pesel in system - login form. If pesel not in system, continue registration.
+        # if pesel wrong - single page with pesel. 
+
+class LoginView(IndexView):
+    template_name = 'login.html'
+    redirect_field_name = 'next'
+
     def check_redirect(self, context):
         redirect_to = context.get(self.redirect_field_name)
         if not redirect_to:
@@ -46,13 +52,7 @@ class IndexView(TemplateView):
             return settings.LOGIN_REDIRECT_URL
 
         return redirect_to
-
-        #add post, to check pesel and only pesel. if pesel in system - login form. If pesel not in system, continue registration.
-        # if pesel wrong - single page with pesel. 
-
-def LoginView(IndexView):
-    template_name = 'login.html'
-    
+        
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
         redirect_to = self.check_redirect(context)

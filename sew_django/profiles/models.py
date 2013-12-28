@@ -4,7 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-from sew_django.profiles.fields import PLPESELModelField
+from sew_django.profiles.fields import PLPESELModelField, PLPostalCodeModelField
 # Create your models here.
 
 class ProfileManager(BaseUserManager):
@@ -35,12 +35,24 @@ class ProfileManager(BaseUserManager):
         return self.get(**{'pesel': username})
 
 class Profile(AbstractBaseUser, PermissionsMixin):
+    photo = models.ImageField(u'zdjęcie', upload_to=settings.MEDIA_ROOT+'photos', null=True) 
+    pesel = PLPESELModelField('PESEL', unique=True, max_length=11, db_index=True)
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=110, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100, blank=True)
     last_name = models.CharField('nazwisko', max_length=30, blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
-    pesel = PLPESELModelField('PESEL', unique=True, max_length=11, db_index=True)
+    #miejsce zamieszkania
+    street = models.CharField('ulica', max_length=255)
+    house = models.CharField('numer domu', max_length=255)
+    flat = models.CharField('numer mieszkania', max_length=10, blank=True, null=True)
+    zip = PLPostalCodeModelField('kod pocztowy', max_length=6)
+    city = models.CharField(u"miejscowość", max_length=255)
+    phone = models.CharField(u"numer telefonu wraz z numerem kierunkowym", max_length=100)
+    workplace_name = models.CharField(u"nazwa szkoły lub zakładu pracy", max_length=255, blank=True, null=True)
+    workplace_address = models.CharField(u"adres uczelni lub zakładu pracy", max_length=255, blank=True, null=True)
+    workplace_zip = PLPostalCodeModelField('kod pocztowy', max_length=6, blank=True, null=True)
+    workplace_city = models.CharField(u"miejscowość", max_length=255, blank=True, null=True)
 
     token = models.CharField(max_length=40, blank=True)
 

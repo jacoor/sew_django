@@ -20,7 +20,7 @@ urlpatterns = patterns('',
                                        'show_indexes': True}),
     (r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:],  # cut away leading slash
          'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,
-                                       'show_indexes': True}),
+                                       'show_indexes': False}),
     (r'^grappelli/', include('grappelli.urls')),
     (r'^tinymce/', include('tinymce.urls')),
 )

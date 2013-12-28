@@ -160,4 +160,5 @@ class ProfileTests(TestCase):
         response = c.get('/rejestracja-wolontariusza/')
         #w/o pesel should show pesel form
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pesel.html')
+        self.assertTemplateUsed(response, 'register/step_1_pesel.html')
+

@@ -79,7 +79,7 @@ class LoginView(IndexView):
         return self.render_to_response(context)
 
 class RegisterView(IndexView):
-    template_name = "pesel.html"
+    template_name = "register/step_1_pesel.html"
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)

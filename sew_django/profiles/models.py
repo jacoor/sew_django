@@ -35,7 +35,7 @@ class ProfileManager(BaseUserManager):
         return self.get(**{'pesel': username})
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    photo = models.ImageField(u'zdjęcie', upload_to=settings.MEDIA_ROOT+'photos', null=True) 
+    photo = models.ImageField(u'zdjęcie', upload_to='photos', null=True, blank=True) 
     pesel = PLPESELModelField('PESEL', unique=True, max_length=11, db_index=True)
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=255, db_index=True, unique=True)

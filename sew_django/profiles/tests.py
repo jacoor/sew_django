@@ -187,21 +187,29 @@ class ProfileTests(TestCase):
         response = c.get('/rejestracja-wolontariusza/')
         #w/o pesel should show pesel form
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'register/step_1_pesel.html')
+        self.assertTemplateUsed(response, 'register/form.html')
 
     def test_register_step_1_empty(self):
         response = self.client.post("/rejestracja-wolontariusza/", {})
         self.assertFormError(response, 'pesel_form', 'pesel', 'To pole jest wymagane.')
 
     def test_register_step_1_invalid(self):
-        response = self.client.post("/rejestracja-wolontariusza/", {'pesel':'xxx'})
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':'xxx'})
         self.assertFormError(response, 'pesel_form', 'pesel', u'Numer PESEL składa się z 11 cyfr.')
        
     def test_register_step_1_invalid(self):
-        response = self.client.post("/rejestracja-wolontariusza/", {'pesel':self.INVALID_PESEL_2})
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.INVALID_PESEL_2})
         self.assertFormError(response, 'pesel_form', 'pesel', u'Błędna suma kontrolna numeru PESEL.')
 
     def test_register_step_1_existing_pesel(self):
-        response = self.client.post("/rejestracja-wolontariusza/", {'pesel':self.CORRECT_PESEL})
-        self.assertFormError(response, 'pesel_form', 'pesel', u'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.')        
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.CORRECT_PESEL})
+        self.assertFormError(response, 'pesel_form', 'pesel', u'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.') 
 
+    def test_register_step_2_wo_pesel(self):
+        response = self.client.get("/rejestracja-wolontariusza/1/",)
+        self.assertRedirects(response, '/rejestracja-wolontariusza/', status_code=200, target_status_code=200)
+
+    def test_register_step_2(self):
+        response = self.client.get("/rejestracja-wolontariusza/1/",{'pesel':'jakikolwiek'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register/full.html')

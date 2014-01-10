@@ -105,3 +105,9 @@ class RegisterViewFull(CreateView):
             return HttpResponseRedirect(reverse('register'))
 
         return super(RegisterViewFull, self).get(request, *args, **kwargs)
+
+    def get_initial(self, *args, **kwargs):
+        initial = super(RegisterViewFull, self).get_initial(*args, **kwargs)
+        pesel = self.request.GET.get("pesel")
+        initial['pesel'] = self.request.GET.get('pesel')
+        return initial

@@ -214,7 +214,6 @@ class ProfileTests(TestCase):
         response = self.client.get("/rejestracja-wolontariusza/1/",{'pesel':'jakikolwiek'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register/full.html')
-        print response.context['form']
         self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
         
 

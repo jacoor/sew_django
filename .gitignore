@@ -39,3 +39,4 @@ admin/
 sew_django/site_media/
 node_modules/
 .sass-cache/
+.coveralls.yml

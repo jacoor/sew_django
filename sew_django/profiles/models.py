@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from django.utils.safestring import mark_safe
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 from sorl.thumbnail import ImageField
 
 from sew_django.profiles.fields import PLPESELModelField, PLPostalCodeModelField
-# Create your models here.
 
 class ProfileManager(BaseUserManager):
     def create_user(self, email=None, password=None, **extra_fields):
@@ -41,8 +38,7 @@ class ProfileManager(BaseUserManager):
 class Profile(AbstractBaseUser, PermissionsMixin):
     photo = ImageField(u'zdjęcie', upload_to='photos', null=True, blank=True) 
     pesel = PLPESELModelField('PESEL', unique=True, max_length=11, db_index=True, 
-        error_messages = {'unique' : mark_safe('Numer PESEL już istnieje w naszej bazie. <a href="%s">zaloguj się.</a>' % 
-        (reverse('login'),)) })
+        error_messages = {'unique' : 'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.'})
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=255, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100, blank=True)

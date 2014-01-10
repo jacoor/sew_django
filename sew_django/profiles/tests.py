@@ -25,6 +25,10 @@ class ProfileTests(TestCase):
     INVALID_PESEL=1111111
     INVALID_PESEL_2='02280710382'
 
+    REGISTER_FULL_EXPECTED_FORM_FIELDS = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house',
+        'flat', 'zip', 'city', 'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city']
+    VALID_USER = {}
+
     def setUp(self):
         self.user = Profile.objects.create(first_name='Joe',
                                             username ='joe',
@@ -215,9 +219,13 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register/full.html')
         self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
+        self.assertEqual(response.context['form'].fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
         
 
     def test_register_step_2_wo_pesel(self):
         response = self.client.get("/rejestracja-wolontariusza/1/",)
         self.assertRedirects(response, '/rejestracja-wolontariusza/', status_code=302, target_status_code=200)
+
+    def test_valid_user_reqistration(self):
+        pass
 

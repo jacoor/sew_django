@@ -41,8 +41,8 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         error_messages = {'unique' : 'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.'})
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)
     email = models.EmailField('adres email', max_length=255, db_index=True, unique=True)
-    first_name = models.CharField(u'imię', max_length=100, blank=True)
-    last_name = models.CharField('nazwisko', max_length=30, blank=True)
+    first_name = models.CharField(u'imię', max_length=100)
+    last_name = models.CharField('nazwisko', max_length=100)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
     #miejsce zamieszkania
     street = models.CharField('ulica', max_length=255)

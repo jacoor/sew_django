@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urlparse
 from django.shortcuts import render
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, CreateView
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.conf import settings
@@ -82,21 +82,12 @@ class LoginView(IndexView):
         self.request.session.set_test_cookie()
         return self.render_to_response(context)
 
-class RegisterView(IndexView):
+class RegisterView(CreateView):
     template_name = "register/step_1_pesel.html"
+    fields = ["pesel"]
+    model = Profile
 
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(*args, **kwargs)
-
-        if request.method == "POST":
-            pesel_form = PeselForm(
-                prefix=self.pesel_prefix,
-                data=request.POST,
-            )
-            if pesel_form.is_valid():
-                #redirect to register step2 with initial pesel filled
-                response = HttpResponseRedirect(redirect_to)
-                return response
-            context['pesel_form'] = pesel_form
-
-        return self.render_to_response(context)
+    def get_context_data(self, *args, **kwargs):
+        context = super(RegisterView, self).get_context_data(*args, **kwargs)
+        context['pesel_form'] = context['form']
+        return context

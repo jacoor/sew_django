@@ -25,6 +25,10 @@ class ProfileTests(TestCase):
     INVALID_PESEL=1111111
     INVALID_PESEL_2='02280710382'
 
+    REGISTER_FULL_EXPECTED_FORM_FIELDS = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house',
+        'flat', 'zip', 'city', 'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city']
+    VALID_USER = {}
+
     def setUp(self):
         self.user = Profile.objects.create(first_name='Joe',
                                             username ='joe',
@@ -187,7 +191,7 @@ class ProfileTests(TestCase):
         response = c.get('/rejestracja-wolontariusza/')
         #w/o pesel should show pesel form
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'register/step_1_pesel.html')
+        self.assertTemplateUsed(response, 'register/form.html')
 
     def test_register_step_1_empty(self):
         response = self.client.post("/rejestracja-wolontariusza/", {})
@@ -200,3 +204,28 @@ class ProfileTests(TestCase):
     def test_register_step_1_invalid(self):
         response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.INVALID_PESEL_2})
         self.assertFormError(response, 'pesel_form', 'pesel', u'Błędna suma kontrolna numeru PESEL.')
+
+    def test_register_step_1_existing_pesel(self):
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.CORRECT_PESEL})
+        self.assertFormError(response, 'pesel_form', 'pesel', u'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.') 
+
+    def test_register_step_1_proper_pesel(self):
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.CORRECT_PESEL_2})
+        self.assertRedirects(response, '/rejestracja-wolontariusza/1/?pesel=%s' % self.CORRECT_PESEL_2,
+            status_code=302, target_status_code=200)
+
+    def test_register_step_2(self):
+        response = self.client.get("/rejestracja-wolontariusza/1/",{'pesel':'jakikolwiek'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register/full.html')
+        self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
+        self.assertEqual(response.context['form'].fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
+        
+
+    def test_register_step_2_wo_pesel(self):
+        response = self.client.get("/rejestracja-wolontariusza/1/",)
+        self.assertRedirects(response, '/rejestracja-wolontariusza/', status_code=302, target_status_code=200)
+
+    def test_valid_user_reqistration(self):
+        pass
+

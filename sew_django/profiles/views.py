@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urlparse
 from django.shortcuts import render
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, CreateView
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.conf import settings
@@ -32,10 +32,6 @@ class IndexView(TemplateView):
         context['login_form'] = AuthenticationForm(prefix=self.login_prefix)
         context['pesel_form'] = PeselForm(prefix=self.pesel_prefix)
         return context
-
-        #add post, to check pesel and only pesel. if pesel in system - login form. If pesel not in system, continue registration.
-        # if pesel wrong - single page with pesel. 
-        # or throw it into some dispatcher function, which might be quite good. 
 
 class LoginView(IndexView):
     template_name = 'login.html'
@@ -83,7 +79,7 @@ class LoginView(IndexView):
         return self.render_to_response(context)
 
 class RegisterView(IndexView):
-    template_name = "register/step_1_pesel.html"
+    template_name = "register/form.html"
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
@@ -94,9 +90,27 @@ class RegisterView(IndexView):
                 data=request.POST,
             )
             if pesel_form.is_valid():
-                #redirect to register step2 with initial pesel filled
-                response = HttpResponseRedirect(redirect_to)
+                response = HttpResponseRedirect("%s?pesel=%s" % (reverse('register-full'), pesel_form.cleaned_data['pesel']))
                 return response
             context['pesel_form'] = pesel_form
 
         return self.render_to_response(context)
+
+class RegisterViewFull(CreateView):
+    template_name = "register/full.html"
+    model = Profile
+    fields = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city', 'phone',
+        'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city']
+
+
+    def get(self, request, *args, **kwargs):
+        if not request.GET.get('pesel'):
+            return HttpResponseRedirect(reverse('register'))
+
+        return super(RegisterViewFull, self).get(request, *args, **kwargs)
+
+    def get_initial(self, *args, **kwargs):
+        initial = super(RegisterViewFull, self).get_initial(*args, **kwargs)
+        pesel = self.request.GET.get("pesel")
+        initial['pesel'] = self.request.GET.get('pesel')
+        return initial

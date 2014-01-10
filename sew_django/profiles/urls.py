@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from sew_django.profiles.views import IndexView, LogoutView, LoginView, RegisterView
+from sew_django.profiles.views import IndexView, LogoutView, LoginView, RegisterView, RegisterViewFull
 from sew_django.profiles.forms import ValidatingSetPasswordForm
 
 urlpatterns = patterns('',
@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r"^logout/$", LogoutView.as_view(), name="logout"),
     url(r"^profil/$", TemplateView.as_view(template_name="profil.html"), name="profil"),
     url(r"^rejestracja-wolontariusza/$", RegisterView.as_view(), name='register'),
+    url(r"^rejestracja-wolontariusza/1/$", RegisterViewFull.as_view(), name='register-full'),
     url(r'^reset_password/$', password_reset,{'template_name': 'password/reset.html'}, name="password_reset"),
     url(r'^password_reset_done/$', password_reset_done, {'template_name' : 'password/reset_done.html'}, \
         name="password_reset_done"),

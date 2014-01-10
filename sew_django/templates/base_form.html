@@ -26,7 +26,7 @@
                     {% endblock form_fields_list %}
                     {% block form_submit %}
                     <li>
-                        {% block submit_button %}<button class="tiny radius">Wyślij</button>{% endblock %}
+                        {% block submit_button %}<button class="tiny radius">{% block submit_text %}Wyślij{% endblock %}</button>{% endblock %}
                     </li>
                     {% endblock %}
                 </ul>

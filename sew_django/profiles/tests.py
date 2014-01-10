@@ -26,7 +26,8 @@ class ProfileTests(TestCase):
     INVALID_PESEL_2='02280710382'
 
     REGISTER_FULL_EXPECTED_FORM_FIELDS = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house',
-        'flat', 'zip', 'city', 'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city']
+        'flat', 'zip', 'city', 'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 
+        'password']
     VALID_USER = {}
 
     def setUp(self):
@@ -220,6 +221,7 @@ class ProfileTests(TestCase):
         self.assertTemplateUsed(response, 'register/full.html')
         self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
         self.assertEqual(response.context['form'].fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
+        #add option to re-enter password!
         
 
     def test_register_step_2_wo_pesel(self):

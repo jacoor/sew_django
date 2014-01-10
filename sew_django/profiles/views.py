@@ -100,7 +100,9 @@ class RegisterViewFull(CreateView):
     template_name = "register/full.html"
     model = Profile
     fields = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city', 'phone',
-        'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city']
+        'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password',]
+
+    #add option to reeenter password!
 
 
     def get(self, request, *args, **kwargs):

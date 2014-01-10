@@ -32,7 +32,7 @@ script:
 #      env: DJANGO="django==1.4.2 --use-mirrors"
 
 after_success:
-  - coverage report
+  - coverage report --omit="fabfile.py","sass.py","sew_django/profiles/migrations/*" -m
   - coveralls
 
 notifications:

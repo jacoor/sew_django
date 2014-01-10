@@ -33,7 +33,6 @@ class AuthenticationForm(DjangoAuthenticationForm):
         self.error_messages['invalid_login'] = _(u"Wprowadź poprawny numer PESEL lub adres email.")
 
 class PeselForm(forms.ModelForm):
-    check_pesel = forms.CharField(label="",initial='1', widget=forms.HiddenInput(attrs={'readonly':True}))
     class Meta:
         model = Profile
         fields = ['pesel',]

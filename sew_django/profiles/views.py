@@ -33,10 +33,6 @@ class IndexView(TemplateView):
         context['pesel_form'] = PeselForm(prefix=self.pesel_prefix)
         return context
 
-        #add post, to check pesel and only pesel. if pesel in system - login form. If pesel not in system, continue registration.
-        # if pesel wrong - single page with pesel. 
-        # or throw it into some dispatcher function, which might be quite good. 
-
 class LoginView(IndexView):
     template_name = 'login.html'
     redirect_field_name = 'next'
@@ -94,8 +90,7 @@ class RegisterView(IndexView):
                 data=request.POST,
             )
             if pesel_form.is_valid():
-                #redirect to register step2 with initial pesel filled
-                #response = HttpResponseRedirect(redirect_to)
+                response = HttpResponseRedirect("%s?pesel=%s" % (reverse('register-full'), pesel_form.cleaned_data['pesel']))
                 return response
             context['pesel_form'] = pesel_form
 
@@ -104,3 +99,9 @@ class RegisterView(IndexView):
 class RegisterViewFull(CreateView):
     template_name = "register/full.html"
     model = Profile
+
+    def get(self, request, *args, **kwargs):
+        if not request.GET.get('pesel'):
+            return HttpResponseRedirect(reverse('register'))
+
+        return super(RegisterViewFull, self).get(request, *args, **kwargs)

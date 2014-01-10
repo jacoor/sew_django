@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="row">
+
         {% block login_form %}
             <form action="{% url "login" %}" method="post" class="{% block login_form_class%} large-6 columns{% endblock %}">
                 <fieldset class="mh300">
@@ -57,5 +57,4 @@
                 </fieldset>
             </form>
         {% endblock %}
-    </div>
 {% endblock %}

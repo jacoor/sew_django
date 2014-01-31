@@ -27,7 +27,8 @@ class ProfileTests(TestCase):
 
     REGISTER_FULL_EXPECTED_FORM_FIELDS = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house',
         'flat', 'zip', 'city', 'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 
-        'password']
+        'password', 'password_confirm']
+        
     VALID_USER = {}
 
     def setUp(self):

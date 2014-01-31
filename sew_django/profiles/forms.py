@@ -36,3 +36,20 @@ class PeselForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['pesel',]
+
+class RegisterUserFullForm(forms.ModelForm):
+
+    password = PasswordField(label=_("New password"))
+    password_confirm = PasswordField(label=_("New password confirmation"))
+
+    def clean_password_confirm(self):
+        password = self.cleaned_data.get('password')
+        password_confirm = self.cleaned_data.get('password_confirm')
+        if password != password_confirm:
+            raise forms.ValidationError(_("Passwords doesn't match."))
+        return password_confirm
+    
+    class Meta:
+        model = Profile
+        fields = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city', 'phone',
+            'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password','password_confirm']

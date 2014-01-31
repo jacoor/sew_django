@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from sew_django.profiles.forms import AuthenticationForm, PeselForm
+from sew_django.profiles.forms import AuthenticationForm, PeselForm, RegisterUserFullForm
 
 from sew_django.profiles.models import Profile
 #from sew_django.emails.send import send_email
@@ -99,10 +99,7 @@ class RegisterView(IndexView):
 class RegisterViewFull(CreateView):
     template_name = "register/full.html"
     model = Profile
-    fields = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city', 'phone',
-        'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password',]
-
-    #add option to reeenter password!
+    form_class = RegisterUserFullForm
 
 
     def get(self, request, *args, **kwargs):

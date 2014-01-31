@@ -58,6 +58,9 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
     token = models.CharField(max_length=40, blank=True)
 
+    read_only = models.BooleanField('edycja zablokowana', default = False, 
+        help_text = "Dane użytkownika tylko do odczytu, zmiana możliwa jedynie przez super administratora")
+
     USERNAME_FIELD = 'username'
 
     objects = ProfileManager()

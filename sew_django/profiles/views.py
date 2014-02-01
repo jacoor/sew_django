@@ -101,15 +101,17 @@ class RegisterViewFull(CreateView):
     model = Profile
     form_class = RegisterUserFullForm
 
-
-    def get(self, request, *args, **kwargs):
-        if not request.GET.get('pesel'):
-            return HttpResponseRedirect(reverse('register'))
-
-        return super(RegisterViewFull, self).get(request, *args, **kwargs)
-
     def get_initial(self, *args, **kwargs):
         initial = super(RegisterViewFull, self).get_initial(*args, **kwargs)
         pesel = self.request.GET.get("pesel")
         initial['pesel'] = self.request.GET.get('pesel')
         return initial
+
+    
+
+
+
+    def get(self, request, *args, **kwargs):
+        if not request.GET.get('pesel'):
+            return HttpResponseRedirect(reverse('register'))
+        return super(RegisterViewFull, self).get(request, *args, **kwargs)

@@ -1,4 +1,5 @@
 1. Rejestracja uzytkownika 
+    - zgody formalne (zgodnie z ustawą o ochronie danych osobowych)
     - pełne testy
     - ograniczenie zdjęc tylko do jpeg, wielkość i rozmiar
     - być może detekcja twarzy na zdjęciu

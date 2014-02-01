@@ -2,6 +2,8 @@ Uwagi:
 Nie ma sensu robić testów jednostkowych pól formularza poza polami z hasłem i peselem - pozostałe są natywnymi polami 
 Django i jako takie są godne zaufania. Jedynym dodatkiem może być test jednostkowy pola ze zdjęciem, po modyfikacji jego
 do obsługi tylko jpeg o konkretnych parametrach.
+Dobre info nt. walidacji obrazków: 
+http://stackoverflow.com/questions/20761092/how-to-validate-image-format-in-django-imagefield
 Sens ma zrobienie testu integracyjnego całego formularza i sprawdzenie czy działa lub nie. 
 1. Rejestracja uzytkownika 
     - zgody formalne (zgodnie z ustawą o ochronie danych osobowych)

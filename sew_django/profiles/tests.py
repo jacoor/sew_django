@@ -226,7 +226,10 @@ class ProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register/full.html')
         self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
-        self.assertEqual(response.context['form'].fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
+
+    def test_register_step_2_form_fields(self):
+        form = RegisterUserFullForm()
+        self.assertEqual(form.fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
 
     def test_register_forms_password(self):
         form = RegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"PasswordA3"})

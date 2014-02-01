@@ -38,9 +38,8 @@ class PeselForm(forms.ModelForm):
         fields = ['pesel',]
 
 class RegisterUserFullForm(forms.ModelForm):
-
-    password = PasswordField(label=_("New password"))
-    password_confirm = PasswordField(label=_("New password confirmation"))
+    password = PasswordField(label=_("Password"))
+    password_confirm = PasswordField(label=_("Password confirmation"))
 
     def clean_password_confirm(self):
         password = self.cleaned_data.get('password')

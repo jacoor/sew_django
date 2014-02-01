@@ -4,8 +4,10 @@ from django.core.urlresolvers import reverse
 from django.test.client import Client
 
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from sew_django.profiles.models import Profile
+from sew_django.profiles.forms import RegisterUserFullForm
 #from sew_django.profiles.views import Index
 
 
@@ -75,8 +77,7 @@ class ProfileTests(TestCase):
                                                 pesel=self.CORRECT_PESEL_1,
                                                 is_active=False,
                                                 )
-            user.set_password('dump-password')
-            
+            user.set_password('dump-password')     
             user.save()
 
     def test_index(self):
@@ -216,19 +217,22 @@ class ProfileTests(TestCase):
         self.assertRedirects(response, '/rejestracja-wolontariusza/1/?pesel=%s' % self.CORRECT_PESEL_2,
             status_code=302, target_status_code=200)
 
+    def test_register_step_2_wo_pesel(self):
+        response = self.client.get("/rejestracja-wolontariusza/1/",)
+        self.assertRedirects(response, '/rejestracja-wolontariusza/', status_code=302, target_status_code=200)
+
     def test_register_step_2(self):
         response = self.client.get("/rejestracja-wolontariusza/1/",{'pesel':'jakikolwiek'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register/full.html')
         self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
         self.assertEqual(response.context['form'].fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
-        #add option to re-enter password!
+
+    def test_register_forms_password(self):
+        form = RegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"PasswordA3"})
+        self.failIf(form.is_valid())
+        self.assertIn(_("Passwords doesn't match."),form.errors['password_confirm'])
         
-
-    def test_register_step_2_wo_pesel(self):
-        response = self.client.get("/rejestracja-wolontariusza/1/",)
-        self.assertRedirects(response, '/rejestracja-wolontariusza/', status_code=302, target_status_code=200)
-
-    def test_valid_user_reqistration(self):
-        pass
+#    def test_valid_user_reqistration(self):
+#        pass
 

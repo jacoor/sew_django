@@ -37,7 +37,6 @@ def deploy(full=False, libs=False, migrate=False):
     user, path, python, pip, prefix, app_dir, environment = get_vars(['user', 'path', 'python', 'pip', 'prefix', 'app_dir', 'environment'])
     with cd(path):
         sudo('git pull', user=user)
-        check_branch(environment, user=user)
         sudo('find . -name "*.pyc" -delete', user=user)
         if full or libs:
             sudo(pip + ' install -r requirements.txt', user=user)

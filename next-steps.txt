@@ -9,8 +9,9 @@ Sens ma zrobienie testu integracyjnego całego formularza i sprawdzenie czy dzia
     - zgody formalne (zgodnie z ustawą o ochronie danych osobowych)
     - pola z data readonly w adminie
     - numer finału w settings jako funkcja, zmieniana w lutym. Automatycznie.
-    - funckcja do wyciągnięca daty urodzenia z peselu
+    - funkcja do wyciągnięca daty urodzenia z peselu
     - pełne testy
+    - username == email
     - ograniczenie zdjęc tylko do jpeg, wielkość i rozmiar
     - być może detekcja twarzy na zdjęciu
 2. Wysłanie maila po rejestracji

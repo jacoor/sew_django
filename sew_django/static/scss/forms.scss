@@ -11,4 +11,7 @@ form{
             margin-bottom:0;
         }
     }
+    .help_text{
+        @extend label;
+    }
 }

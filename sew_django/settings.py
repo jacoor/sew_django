@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -192,7 +192,12 @@ COMPRESS_PRECOMPILERS = (
     #('text/x-scss', 'sass --scss  --debug-info {infile} {outfile}'),
     ('text/x-scss', 'sass --scss --compass  --debug-info {infile} {outfile}'),
 )
+today = datetime.date.today()
+FINALE_NR = 22 + 2014 - today.year
 
+if today.month > 1:
+    #starting from february, we count for next year
+    FINALE_NR = FINALE_NR + 1
 try:
     from local_settings import *
 except ImportError:

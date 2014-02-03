@@ -235,10 +235,15 @@ class ProfileTests(TestCase):
         form = RegisterUserFullForm()
         self.assertEqual(form.fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
 
-    def test_register_forms_password(self):
+    def test_register_forms_confirm_password_fail(self):
         form = RegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"PasswordA3"})
         self.failIf(form.is_valid())
         self.assertIn(_("Passwords doesn't match."),form.errors['password_confirm'])
+
+    def test_register_forms_confirm_password_success(self):
+        form = RegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"passwordA2"})
+        self.failIf(form.is_valid())
+        self.assertFalse(form.errors.get('password_confirm'))
         
 #    def test_valid_user_reqistration(self):
 #        pass

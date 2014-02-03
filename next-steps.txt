@@ -7,6 +7,7 @@ http://stackoverflow.com/questions/20761092/how-to-validate-image-format-in-djan
 Sens ma zrobienie testu integracyjnego całego formularza i sprawdzenie czy działa lub nie. 
 1. Rejestracja uzytkownika 
     - zgody formalne (zgodnie z ustawą o ochronie danych osobowych)
+    - funckcja do wyciągnięca daty urodzenia z peselu
     - pełne testy
     - ograniczenie zdjęc tylko do jpeg, wielkość i rozmiar
     - być może detekcja twarzy na zdjęciu

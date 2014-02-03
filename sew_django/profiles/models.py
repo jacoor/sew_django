@@ -36,7 +36,11 @@ class ProfileManager(BaseUserManager):
         return self.get(**{'pesel': username})
 
 class Profile(AbstractBaseUser, PermissionsMixin):
-    photo = ImageField(u'zdjęcie', upload_to='photos', null=True, blank=True) 
+    photo = ImageField(u'zdjęcie', upload_to='photos', null=True, blank=True, 
+        help_text =u"Zdjęcie na identyfikator. Ma to być zdjęcie twarzy, bez ciemnych okularów, masek itp." 
+        +u" Maksymalny rozmiar pliku 2 MB. Preferowane zdjęcie o rozmiarze 800x800px - inne będą" 
+        +u" przeskalowane automatycznie, co może powodować nieoczekiwane skutki. Jeśli wyślesz nam niepoprawne zdjęcie" 
+        +u" możesz zostać wykluczony z procesu rekrutacji.") 
     pesel = PLPESELModelField('PESEL', unique=True, max_length=11, db_index=True, 
         error_messages = {'unique' : 'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.'})
     username = models.CharField(u'nazwa użytkownika', max_length=100, unique=True)

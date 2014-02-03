@@ -18,11 +18,13 @@
             <span class="tooltip_marker">?</span>
         {% endif %}
         {% if not no_errors %}
+            {% if f.errors %}
             <ul class="errorlist">
                 {% for e in f.errors %}
                     <li>{{e|safe}}</li>
                 {% endfor %}
             </ul>
+            {% endif %}
         {% endif %}
         {% if f.help_text  and not tooltip %}
             <span class="help_text {{f.field.widget.attrs.help_text_class}}">

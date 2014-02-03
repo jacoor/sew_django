@@ -2,7 +2,7 @@
 
 {% block proper_content %}
     {% block above_form %}{% endblock %}
-    <form action="{% block form_action %}.{% endblock %}" method="{% block form_method %}post{% endblock %}">
+    <form action="{% block form_action %}.{% endblock %}" {% if form.is_multipart %}enctype="multipart/form-data" {% endif %} method="{% block form_method %}post{% endblock %}">
         <fieldset>
             {% block legend %}
                 <legend>{% block legend_content %}Legend{% endblock %}</legend>

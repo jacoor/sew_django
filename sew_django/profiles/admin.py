@@ -11,7 +11,9 @@ from sew_django.profiles.forms import UserAdminCreationForm, AdminPasswordChange
 class UserAdmin(AdminImageMixin, UserAdmin):
     list_display = ('email', 'is_staff')
     ordering = ('email',)
-    readonly_fields=('date_joined',)
+    readonly_fields=('date_joined','consent_processing_of_personal_data',
+        'date_consent_processing_of_personal_data', 'accept_of_sending_data_to_WOSP',
+        'date_accept_of_sending_data_to_WOSP',)
     fieldsets = ()
     add_form = UserAdminCreationForm
     change_password_form = AdminPasswordChangeForm

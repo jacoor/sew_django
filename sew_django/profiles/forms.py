@@ -12,7 +12,7 @@ from sew_django.profiles.models import Profile
 
 class ValidatingSetPasswordForm(SetPasswordForm):
     new_password1 = PasswordField(label=_("New password"))
-    new_password2 = PasswordField(label=_("New password confirmation"))
+    new_password2 = PasswordField(label=_("New password confirm"))
  
 class ValidatingPasswordChangeForm(PasswordChangeForm):
     new_password1 = PasswordField(label=_("New password"))

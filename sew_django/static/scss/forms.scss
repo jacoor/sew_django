@@ -14,4 +14,7 @@ form{
     .help_text{
         @extend label;
     }
+    label input[type=checkbox]{
+        margin-bottom: 0;
+    }
 }

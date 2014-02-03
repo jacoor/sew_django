@@ -45,8 +45,10 @@ class RegisterUserFullForm(forms.ModelForm):
         super(RegisterUserFullForm, self).__init__(*args, **kwargs)
         self.fields['consent_processing_of_personal_data'].is_checkbox = True
         self.fields['consent_processing_of_personal_data'].required = True
+        self.fields['consent_processing_of_personal_data'].initial = False
         self.fields['accept_of_sending_data_to_WOSP'].is_checkbox = True
         self.fields['accept_of_sending_data_to_WOSP'].required = True
+        self.fields['accept_of_sending_data_to_WOSP'].initial = False
 
     def clean_password_confirm(self):
         password = self.cleaned_data.get('password')

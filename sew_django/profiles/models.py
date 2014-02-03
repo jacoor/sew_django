@@ -65,7 +65,8 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         + u" (Dz. U. nr 133, poz. 883 ze zm.) w celu organizacji XXX Finału Wielkiej Orkiestry Świątecznej Pomocy" 
         + u" we Wrocławiu. Oświadczam, że zostałem poinformowany, że podanie moich danych osobowych ma charakter "
         + u" dobrowolny oraz, że przysługuje mi prawo wglądu do nich, jak również możliwość ich poprawiania." 
-        + u"Przyjmuję do wiadomości że wyrażenie niniejszej zgody jest wymagane w celu kontynuowania rejestracji.")
+        + u"Przyjmuję do wiadomości że wyrażenie niniejszej zgody jest wymagane w celu kontynuowania rejestracji.", 
+        default = True)
 
     date_consent_processing_of_personal_data = models.DateTimeField(u'Data wyrażenia zgody na przetwarzanie danych',
         auto_now_add=True)
@@ -75,7 +76,8 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         + u" gdzie dane będą przetwarzane stosownie do postanowień Ustawy z dnia 29 sierpnia 1997 r." 
         + u" o ochronie danych osobowych (Dz. U. nr 133, poz. 883 ze zm.) w celu organizacji Finału Wielkiej"
         + u" Orkiestry Świątecznej Pomocy. Przyjmuję do wiadomości że wyrażenie niniejszej" 
-        + u" zgody jest wymagane w celu kontynuowania rejestracji.")
+        + u" zgody jest wymagane w celu kontynuowania rejestracji.", 
+        default = True)
     date_accept_of_sending_data_to_WOSP = models.DateTimeField(u'Data wyrażenia zgody na przekazanie danych do WOŚP',
         auto_now_add=True)
 

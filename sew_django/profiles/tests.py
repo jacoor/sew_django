@@ -29,7 +29,7 @@ class ProfileTests(TestCase):
 
     REGISTER_FULL_EXPECTED_FORM_FIELDS = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house',
         'flat', 'zip', 'city', 'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 
-        'password', 'password_confirm']
+        'password', 'password_confirm', 'consent_processing_of_personal_data', 'accept_of_sending_data_to_WOSP']
         
     VALID_USER = {}
 
@@ -39,6 +39,8 @@ class ProfileTests(TestCase):
                                             email='joe@doe.com',
                                             pesel=self.CORRECT_PESEL,
                                             is_active=False,
+                                            #consent_processing_of_personal_data = True,
+                                            #accept_of_sending_data_to_WOSP = True,
                                             )
         self.user.set_password('dump-password')
         self.user.save()
@@ -53,6 +55,8 @@ class ProfileTests(TestCase):
                                             email='joe1@doe.com',
                                             pesel=self.CORRECT_PESEL_1,
                                             is_active=False,
+                                            #consent_processing_of_personal_data = True,
+                                            #accept_of_sending_data_to_WOSP = True,
                                             )
         user.set_password('dump-password')
 

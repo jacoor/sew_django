@@ -47,7 +47,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('adres email', max_length=255, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100)
     last_name = models.CharField('nazwisko', max_length=100)
-    date_joined = models.DateTimeField('data rejestracji', auto_now_add=True)
+    date_joined = models.DateTimeField('data rejestracji', auto_now_add=True,)
     #miejsce zamieszkania
     street = models.CharField('ulica', max_length=255)
     house = models.CharField('numer domu', max_length=255)
@@ -59,6 +59,25 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     workplace_address = models.CharField(u"adres uczelni lub zakładu pracy", max_length=255, blank=True, null=True)
     workplace_zip = PLPostalCodeModelField('kod pocztowy', max_length=6, blank=True, null=True)
     workplace_city = models.CharField(u"miejscowość", max_length=255, blank=True, null=True)
+    consent_processing_of_personal_data = models.BooleanField(u"Wyrażam zgodę na przetwarzanie podanych danych"
+        + u" osobowych przez Stowarzyszenie Hobbystów Kolejowych z siedzibą w Warszawie przy ul. Orląt Lwowskich 38,"
+        + u" stosownie do postanowień Ustawy z dnia 29 sierpnia 1997 r. o ochronie danych osobowych" 
+        + u" (Dz. U. nr 133, poz. 883 ze zm.) w celu organizacji XXX Finału Wielkiej Orkiestry Świątecznej Pomocy" 
+        + u" we Wrocławiu. Oświadczam, że zostałem poinformowany, że podanie moich danych osobowych ma charakter "
+        + u" dobrowolny oraz, że przysługuje mi prawo wglądu do nich, jak również możliwość ich poprawiania." 
+        + u"Przyjmuję do wiadomości że wyrażenie niniejszej zgody jest wymagane w celu kontynuowania rejestracji.")
+
+    date_consent_processing_of_personal_data = models.DateTimeField(u'Data wyrażenia zgody na przetwarzanie danych',
+        auto_now_add=True)
+
+    accept_of_sending_data_to_WOSP = models.BooleanField(u"Wyrażam zgodę na przekazanie moich danych do fundacji"
+        + u" Wielka Orkiestra Świątecznej Pomocy z siedzibą w Warszawie przy ul. Dominikańska 19c"
+        + u" gdzie dane będą przetwarzane stosownie do postanowień Ustawy z dnia 29 sierpnia 1997 r." 
+        + u" o ochronie danych osobowych (Dz. U. nr 133, poz. 883 ze zm.) w celu organizacji Finału Wielkiej"
+        + u" Orkiestry Świątecznej Pomocy. Przyjmuję do wiadomości że wyrażenie niniejszej" 
+        + u" zgody jest wymagane w celu kontynuowania rejestracji.")
+    date_accept_of_sending_data_to_WOSP = models.DateTimeField(u'Data wyrażenia zgody na przekazanie danych do WOŚP',
+        auto_now_add=True)
 
     token = models.CharField(max_length=40, blank=True)
 

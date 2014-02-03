@@ -41,6 +41,13 @@ class RegisterUserFullForm(forms.ModelForm):
     password = PasswordField(label=_("Password"))
     password_confirm = PasswordField(label=_("Password confirmation"))
 
+    def __init__(self, *args, **kwargs):
+        super(RegisterUserFullForm, self).__init__(*args, **kwargs)
+        self.fields['consent_processing_of_personal_data'].is_checkbox = True
+        self.fields['consent_processing_of_personal_data'].required = True
+        self.fields['accept_of_sending_data_to_WOSP'].is_checkbox = True
+        self.fields['accept_of_sending_data_to_WOSP'].required = True
+
     def clean_password_confirm(self):
         password = self.cleaned_data.get('password')
         password_confirm = self.cleaned_data.get('password_confirm')
@@ -51,4 +58,5 @@ class RegisterUserFullForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city', 'phone',
-            'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password','password_confirm']
+            'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password','password_confirm',
+            "consent_processing_of_personal_data", "accept_of_sending_data_to_WOSP"]

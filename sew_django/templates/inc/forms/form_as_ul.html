@@ -10,10 +10,23 @@
         {% if f.help_text and tooltip %}
             <div class="input_wrapper with_tooltip show_tooltip">
         {% endif %}
-        {% if f.label %}
-            {{f.label_tag}}
+        {% comment %}
+            example:
+            def __init__(self, *args, **kwargs):
+                super(RegisterUserFullForm, self).__init__(*args, **kwargs)
+                self.fields['consent_processing_of_personal_data'].is_checkbox = True
+        {% endcomment %}
+        {% if f.field.is_checkbox %}
+        <label for="{{f.auto_id}}">
+            {{f}}
+            {{f.label}}
+        </label>
+        {% else %}
+            {% if f.label %}
+                {{f.label_tag}}
+            {% endif %}
+            {{f}}
         {% endif %}
-        {{f}}
         {% if f.help_text and tooltip %}
             <span class="tooltip_marker">?</span>
         {% endif %}

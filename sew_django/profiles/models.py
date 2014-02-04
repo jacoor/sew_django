@@ -115,3 +115,8 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         if not self.username:
             self.username = self.email
         super(Profile, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "użytkownik"
+        verbose_name_plural = "użytkownicy"
+

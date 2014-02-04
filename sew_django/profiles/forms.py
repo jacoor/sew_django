@@ -56,6 +56,13 @@ class RegisterUserFullForm(forms.ModelForm):
         if password != password_confirm:
             raise forms.ValidationError(_("Passwords doesn't match."))
         return password_confirm
+
+    def save(self, commit=True):
+        profile = super(RegisterUserFullForm, self).save(commit=False)
+        profile.set_password(self.cleaned_data["password"])
+        if commit:
+            profile.save()
+        return profile
     
     class Meta:
         model = Profile
@@ -79,9 +86,3 @@ class AdminRegisterUserFullForm(RegisterUserFullForm):
         cleaned_data['accept_of_sending_data_to_WOSP'] = True
         return cleaned_data
 
-    def save(self, commit=True):
-        profile = super(AdminRegisterUserFullForm, self).save(commit=False)
-        profile.set_password(self.cleaned_data["password"])
-        if commit:
-            profile.save()
-        return profile

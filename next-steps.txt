@@ -15,7 +15,8 @@ Sens ma zrobienie testu integracyjnego całego formularza i sprawdzenie czy dzia
     - ograniczenie zdjęc tylko do jpeg, wielkość i rozmiar
     - przeskalowanie
     - być może detekcja twarzy na zdjęciu
-2. Wysłanie maila po rejestracji
-3. Potwierdzenie adresu email za pomocą linka w mailu
-4. Opcja zmiany zdjęcia już po zarejestrowaniu przez użytkownika tylko do określonej daty/blokady profilu.
-5. Modyfikacje panelu admina zgodnie z dokumentacją
+3. Poprawne przekierowywanie zalogowanego usera - admin do admina, normalny do profilu
+4. Wysłanie maila po rejestracji
+5. Potwierdzenie adresu email za pomocą linka w mailu
+6. Opcja zmiany zdjęcia już po zarejestrowaniu przez użytkownika tylko do określonej daty/blokady profilu.
+7. Modyfikacje panelu admina zgodnie z dokumentacją

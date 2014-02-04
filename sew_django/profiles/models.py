@@ -48,6 +48,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('adres email', max_length=255, db_index=True, unique=True)
     first_name = models.CharField(u'imię', max_length=100)
     last_name = models.CharField('nazwisko', max_length=100)
+    rank = models.CharField(u'ocena', max_length=2, choices = [(x,x) for x in xrange(5)], blank=True)
     date_joined = models.DateTimeField('data rejestracji', auto_now_add=True,)
     #miejsce zamieszkania
     street = models.CharField('ulica', max_length=255)

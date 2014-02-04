@@ -7,7 +7,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from sew_django.profiles.models import Profile
-from sew_django.profiles.forms import RegisterUserFullForm
+from sew_django.profiles.forms import RegisterUserFullForm, AdminRegisterUserFullForm
 #from sew_django.profiles.views import Index
 
 
@@ -231,20 +231,20 @@ class ProfileTests(TestCase):
         self.assertTemplateUsed(response, 'register/full.html')
         self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
 
-    def test_register_step_2_form_fields(self):
-        form = RegisterUserFullForm()
-        self.assertEqual(form.fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
-
     def test_register_forms_confirm_password_fail(self):
-        form = RegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"PasswordA3"})
+        form = AdminRegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"PasswordA3"})
         self.failIf(form.is_valid())
         self.assertIn(_("Passwords doesn't match."),form.errors['password_confirm'])
 
-    def test_register_forms_confirm_password_success(self):
-        form = RegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"passwordA2"})
+    def test_register_user_in_admin_form_fields(self):
+        form = AdminRegisterUserFullForm()
+        self.assertEqual(form.fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
+
+    def test_register_user_in_admin_confirm_password_success(self):
+        form = AdminRegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"passwordA2"})
         self.failIf(form.is_valid())
         self.assertFalse(form.errors.get('password_confirm'))
-        
+
 #    def test_valid_user_reqistration(self):
 #        pass
 

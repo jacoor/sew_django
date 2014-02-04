@@ -64,7 +64,24 @@ class RegisterUserFullForm(forms.ModelForm):
             "consent_processing_of_personal_data", "accept_of_sending_data_to_WOSP"]
 
 class AdminRegisterUserFullForm(RegisterUserFullForm):
+    #small hack to show those fields
+    consent_processing_of_personal_data = forms.BooleanField(required=False, initial=True)
+    accept_of_sending_data_to_WOSP = forms.BooleanField(required=False, initial=True)
 
     def __init__(self, *args, **kwargs):
-        #small hack to avoid read only fields
-        super(RegisterUserFullForm, self).__init__(*args, **kwargs)
+        super(AdminRegisterUserFullForm, self).__init__(*args, **kwargs)
+        self.fields['consent_processing_of_personal_data'].required = False
+        self.fields['accept_of_sending_data_to_WOSP'].required = False
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        cleaned_data['consent_processing_of_personal_data'] = True
+        cleaned_data['accept_of_sending_data_to_WOSP'] = True
+        return cleaned_data
+
+    def save(self, commit=True):
+        profile = super(AdminRegisterUserFullForm, self).save(commit=False)
+        profile.set_password(self.cleaned_data["password"])
+        if commit:
+            profile.save()
+        return profile

@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm, \
     AdminPasswordChangeForm as DjagnoAdminPasswordChangeForm, UserCreationForm, \
     AuthenticationForm as DjangoAuthenticationForm
 
+from localflavor.pl.forms import PLPESELField
+
 from django.utils.translation import ugettext_lazy as _
 from passwords.fields import PasswordField
+from localflavor.pl.forms import PLPESELField
 
 from sew_django.profiles.models import Profile
 
@@ -20,11 +24,7 @@ class ValidatingPasswordChangeForm(PasswordChangeForm):
 
 class AdminPasswordChangeForm(DjagnoAdminPasswordChangeForm):
     password1 = PasswordField(label=_("New password"))
-    password2 = PasswordField(label=_("New password confirmation"))
-
-class UserAdminCreationForm(UserCreationForm):
-    password1 = PasswordField(label=_("New password"))
-    password2 = PasswordField(label=_("New password confirmation"))
+    password2 = PasswordField(label=_("New password confirm"))
 
 class AuthenticationForm(DjangoAuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -62,3 +62,9 @@ class RegisterUserFullForm(forms.ModelForm):
         fields = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city', 'phone',
             'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password','password_confirm',
             "consent_processing_of_personal_data", "accept_of_sending_data_to_WOSP"]
+
+class AdminRegisterUserFullForm(RegisterUserFullForm):
+
+    def __init__(self, *args, **kwargs):
+        #small hack to avoid read only fields
+        super(RegisterUserFullForm, self).__init__(*args, **kwargs)

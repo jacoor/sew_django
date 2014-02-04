@@ -36,6 +36,7 @@ class ProfileManager(BaseUserManager):
         return self.get(**{'pesel': username})
 
 class Profile(AbstractBaseUser, PermissionsMixin):
+    REQUIRED_FIELDS = ['pesel', 'email','first_name','last_name','street', 'house','zip','city','phone',]
     photo = ImageField(u'zdjęcie', upload_to='photos', null=True, blank=True, 
         help_text =u"Zdjęcie na identyfikator. Ma to być zdjęcie twarzy, bez ciemnych okularów, masek itp." 
         +u" Maksymalny rozmiar pliku 2 MB. Preferowane zdjęcie o rozmiarze 800x800px - inne będą" 
@@ -109,3 +110,8 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
     def get_username(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = self.email
+        super(Profile, self).save(*args, **kwargs)

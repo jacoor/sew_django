@@ -50,24 +50,20 @@ class ProfileTests(TestCase):
         self.user.save()
 
     def test_create_user(self):
-        user = Profile.objects.create_user(first_name='Joe',
-                                            username ='joe1',
-                                            email='joe1@doe.com',
-                                            pesel=self.CORRECT_PESEL_1,
-                                            is_active=False,
-                                            #consent_processing_of_personal_data = True,
-                                            #accept_of_sending_data_to_WOSP = True,
-                                            )
+        user = Profile.objects.create_user(
+            first_name='Joe',
+            username='joe1',
+            email='joe1@doe.com',
+            pesel=self.CORRECT_PESEL_1,
+            is_active=False,)
         user.set_password('dump-password')
-
         verify_user = Profile.objects.get_by_email('joe1@doe.com')
         self.assertEqual(verify_user.username, user.username)
 
     def test_create_super_user(self):
         user = Profile.objects.create_superuser(
-                                            email='joe2@doe.com',
-                                            password='dump-password',
-                                            )
+            email='joe2@doe.com',
+            password='dump-password',)
 
         verify_user = Profile.objects.get_by_email('joe2@doe.com')
         self.assertEqual(verify_user.username, user.username)
@@ -91,7 +87,7 @@ class ProfileTests(TestCase):
     def test_login(self):
         #request = RequestFactory().get(reverse('index'))
         response = self.client.login(username='joe', password='dump-password')
-        self.assertEqual(response, False) 
+        self.assertEqual(response, False)
         self.user.is_active = True
         self.user.save()
         response = self.client.login(username='joe', password='dump-password')
@@ -102,9 +98,8 @@ class ProfileTests(TestCase):
         self.assertFormError(response, 'login_form', 'password', 'To pole jest wymagane.')
         self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
 
-        response = self.client.post("/login/", {'login-username':'xxx'})
+        response = self.client.post("/login/", {'login-username': 'xxx'})
         self.assertFormError(response, 'login_form', 'password', 'To pole jest wymagane.')
-        
         response = self.client.post("/login/", {'login-password':'xxx'})
         self.assertFormError(response, 'login_form', 'username', 'To pole jest wymagane.')
 

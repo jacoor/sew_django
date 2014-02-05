@@ -72,25 +72,13 @@ class ProfileTests(TestCase):
         verify_user = Profile.objects.get_by_email('joe2@doe.com')
         self.assertEqual(verify_user.username, user.username)
 
-
-    def test_create_user_wo_email(self):
-
-        with self.assertRaises(ValueError) as cm:
-            user = Profile.objects.create_user(first_name='Joe',
-                                                username ='joe2',
-                                                pesel=self.CORRECT_PESEL_1,
-                                                is_active=False,
-                                                )
-            user.set_password('dump-password')     
-            user.save()
-
     def test_index(self):
         #request = RequestFactory().get(reverse('index'))
         c = Client()
         response = c.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-    
+
     def test_login_view(self):
         response = self.client.get('/login/')
         self.assertEqual(response.status_code, 200)

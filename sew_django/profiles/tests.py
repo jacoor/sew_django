@@ -201,8 +201,9 @@ class ProfileTests(TestCase):
         self.assertFormError(response, 'pesel_form', 'pesel', u'Błędna suma kontrolna numeru PESEL.')
 
     def test_register_step_1_existing_pesel(self):
-        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.CORRECT_PESEL})
-        self.assertFormError(response, 'pesel_form', 'pesel', u'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.') 
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel': self.CORRECT_PESEL})
+        self.assertFormError(response, 'pesel_form', 'pesel',
+                             u'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.')
 
     def test_register_step_1_proper_pesel(self):
         response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.CORRECT_PESEL_2})

@@ -11,40 +11,45 @@ from sew_django.profiles.forms import RegisterUserFullForm, AdminRegisterUserFul
 #from sew_django.profiles.views import Index
 
 
-
-def setup_view(view, request, *args, **kwargs):
-    """*args and **kwargs you could pass to ``reverse()``."""
-    view.request = request
-    view.args = args
-    view.kwargs = kwargs
-    return view
-
-
 class ProfileTests(TestCase):
-    CORRECT_PESEL=84111508709
-    CORRECT_PESEL_1=81101507348
-    CORRECT_PESEL_2='02280710383'
-    INVALID_PESEL=1111111
-    INVALID_PESEL_2='02280710382'
+    CORRECT_PESEL = 84111508709
+    CORRECT_PESEL_1 = 81101507348
+    CORRECT_PESEL_2 = '02280710383'
+    INVALID_PESEL = 1111111
+    INVALID_PESEL_2 = '02280710382'
 
-    REGISTER_FULL_EXPECTED_FORM_FIELDS = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house',
-        'flat', 'zip', 'city', 'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 
-        'password', 'password_confirm', 'consent_processing_of_personal_data', 'accept_of_sending_data_to_WOSP']
-        
+    REGISTER_FULL_EXPECTED_FORM_FIELDS = [
+        'pesel',
+        'email',
+        'photo',
+        'first_name',
+        'last_name',
+        'street',
+        'house',
+        'flat',
+        'zip',
+        'city',
+        'phone',
+        'workplace_name',
+        'workplace_address',
+        'workplace_zip',
+        'workplace_city',
+        'password',
+        'password_confirm',
+        'consent_processing_of_personal_data',
+        'accept_of_sending_data_to_WOSP']
     VALID_USER = {}
 
     def setUp(self):
-        self.user = Profile.objects.create(first_name='Joe',
-                                            username ='joe',
-                                            email='joe@doe.com',
-                                            pesel=self.CORRECT_PESEL,
-                                            is_active=False,
-                                            #consent_processing_of_personal_data = True,
-                                            #accept_of_sending_data_to_WOSP = True,
-                                            )
+        self.user = Profile.objects.create(
+            first_name='Joe',
+            username='joe',
+            email='joe@doe.com',
+            pesel=self.CORRECT_PESEL,
+            is_active=False,)
         self.user.set_password('dump-password')
         self.user.save()
-    
+
     def activate_user(self):
         self.user.is_active = True
         self.user.save()

@@ -20,3 +20,13 @@ Sens ma zrobienie testu integracyjnego całego formularza i sprawdzenie czy dzia
 5. Potwierdzenie adresu email za pomocą linka w mailu
 6. Opcja zmiany zdjęcia już po zarejestrowaniu przez użytkownika tylko do określonej daty/blokady profilu.
 7. Modyfikacje panelu admina zgodnie z dokumentacją
+
+
+Testy:
+- zarejestrowanie uzytkownika za pomocą samego formularza z panelu admina (bez post) oraz zalogowanie sie na danego usera.
+- zarejestrowanie uzytkownika za pomocą samego formularza ze strony rejestracji (bez post) oraz zalogowanie sie na danego usera.
+- test integracyjny posta na widok z formularzem rejestracji - post z danymi + logowanie
+- test integracyjny posta na widok z formularzem dodania usera w adminie - post z danymi + logowanie
+Do powyższych testów wystarczy:
+a) test walidacji formularza z admina (samego form)
+b) utworzenie uzytkownika za pomocą poprawnych danych za pośrednictwem kazdego z powyzszych 4 przypadków

@@ -193,12 +193,8 @@ class ProfileTests(TestCase):
         self.assertFormError(response, 'pesel_form', 'pesel', 'To pole jest wymagane.')
 
     def test_register_step_1_invalid(self):
-        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':'xxx'})
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel': 'xxx'})
         self.assertFormError(response, 'pesel_form', 'pesel', u'Numer PESEL składa się z 11 cyfr.')
-       
-    def test_register_step_1_invalid(self):
-        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.INVALID_PESEL_2})
-        self.assertFormError(response, 'pesel_form', 'pesel', u'Błędna suma kontrolna numeru PESEL.')
 
     def test_register_step_1_existing_pesel(self):
         response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel': self.CORRECT_PESEL})

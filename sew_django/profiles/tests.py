@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.test import TestCase, RequestFactory, SimpleTestCase
-from django.core.urlresolvers import reverse
+from django.test import TestCase
+#from django.core.urlresolvers import reverse
 from django.test.client import Client
 
 from django.conf import settings

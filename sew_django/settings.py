@@ -82,7 +82,7 @@ INSTALLED_APPS = (
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.BrokenLinkEmailsMiddleware', #responsible of reporting 404 errors
+    'django.middleware.common.BrokenLinkEmailsMiddleware',#responsible of reporting 404 errors
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

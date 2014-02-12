@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import urlparse
-from django.shortcuts import render
 from django.views.generic import TemplateView, RedirectView, CreateView
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.contrib import messages
 from sew_django.profiles.forms import AuthenticationForm, PeselForm, RegisterUserFullForm
 
 from sew_django.profiles.models import Profile
@@ -32,6 +30,7 @@ class IndexView(TemplateView):
         context['login_form'] = AuthenticationForm(prefix=self.login_prefix)
         context['pesel_form'] = PeselForm(prefix=self.pesel_prefix)
         return context
+
 
 class LoginView(IndexView):
     template_name = 'login.html'

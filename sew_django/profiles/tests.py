@@ -38,7 +38,26 @@ class ProfileTests(TestCase):
         'password_confirm',
         'consent_processing_of_personal_data',
         'accept_of_sending_data_to_WOSP']
-    VALID_USER = {}
+
+    VALID_USER = {
+        'pesel': '80010363616',
+        'email': 'test@example.com',
+        'first_name': 'Jan',
+        'last_name': 'Kowalski',
+        'street': u'przykładowa ulica o długiej nazwie',
+        'house': u'przykładowy numer domu',
+        'flat': u'przykładowy numer mieszkania',
+        'zip': '51-111',
+        'city': u'Wrocław',
+        'phone': u'przykładowy telefon',
+        'workplace_name': u'nazwa zakład pracy',
+        'workplace_address': u'adres zakładu pracy',
+        'workplace_city': u'miejscowość zakładu pracy',
+        'password': '123456Aa',
+        'password_confirm': '123456Aa',
+        'consent_processing_of_personal_data': 'on',
+        'accept_of_sending_data_to_WOSP': 'on',
+    }
 
     def setUp(self):
         self.user = Profile.objects.create(

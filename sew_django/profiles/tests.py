@@ -39,6 +39,21 @@ class ProfileTests(TestCase):
         'consent_processing_of_personal_data',
         'accept_of_sending_data_to_WOSP']
 
+    REGISTER_FULL_EXPECTED_REQUIRED_FORM_FIELDS =[
+        'pesel',
+        'email',
+        'first_name',
+        'last_name',
+        'street',
+        'house',
+        'zip',
+        'city',
+        'phone',
+        'password',
+        'password_confirm',
+        'consent_processing_of_personal_data',
+        'accept_of_sending_data_to_WOSP']
+
     VALID_USER = {
         'pesel': '80010363616',
         'email': 'test@example.com',
@@ -221,34 +236,40 @@ class ProfileTests(TestCase):
                              u'Numer PESEL już istnieje w naszej bazie. <a href="/login/">Zaloguj się</a>.')
 
     def test_register_step_1_proper_pesel(self):
-        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel':self.CORRECT_PESEL_2})
+        response = self.client.post("/rejestracja-wolontariusza/", {'pesel-pesel': self.CORRECT_PESEL_2})
         self.assertRedirects(response, '/rejestracja-wolontariusza/1/?pesel=%s' % self.CORRECT_PESEL_2,
-            status_code=302, target_status_code=200)
+                             status_code=302, target_status_code=200)
 
     def test_register_step_2_wo_pesel(self):
         response = self.client.get("/rejestracja-wolontariusza/1/",)
         self.assertRedirects(response, '/rejestracja-wolontariusza/', status_code=302, target_status_code=200)
 
     def test_register_step_2(self):
-        response = self.client.get("/rejestracja-wolontariusza/1/",{'pesel':'jakikolwiek'})
+        response = self.client.get("/rejestracja-wolontariusza/1/", {'pesel': 'jakikolwiek'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register/full.html')
         self.assertEqual(response.context['form'].initial.get('pesel'), 'jakikolwiek')
 
     def test_register_forms_confirm_password_fail(self):
-        form = AdminRegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"PasswordA3"})
+        form = AdminRegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm': "PasswordA3"})
         self.failIf(form.is_valid())
-        self.assertIn(_("Passwords doesn't match."),form.errors['password_confirm'])
+        self.assertIn(_("Passwords doesn't match."), form.errors['password_confirm'])
 
     def test_register_user_in_admin_form_fields(self):
         form = AdminRegisterUserFullForm()
         self.assertEqual(form.fields.keys(), self.REGISTER_FULL_EXPECTED_FORM_FIELDS)
 
     def test_register_user_in_admin_confirm_password_success(self):
-        form = AdminRegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm':"passwordA2"})
+        form = AdminRegisterUserFullForm(data={'password': 'passwordA2', 'password_confirm': "passwordA2"})
         self.failIf(form.is_valid())
         self.assertFalse(form.errors.get('password_confirm'))
 
-#    def test_valid_user_reqistration(self):
-#        pass
+    def test_empty_public_registration_form(self):
+        #should throw all errors!
+        form = RegisterUserFullForm(data={})
+        self.failIf(form.is_valid())
+        self.assertEqual(set(form.errors.keys()), set(self.REGISTER_FULL_EXPECTED_REQUIRED_FORM_FIELDS))
+
+    def test_valid_user_reqistration(self):
+        pass
 

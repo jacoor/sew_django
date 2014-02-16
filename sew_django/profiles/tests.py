@@ -173,14 +173,12 @@ class ProfileTests(TestCase):
 
     def test_different_domain_redirect(self):
         user = Profile.objects.create_superuser(
-                                            email='joe2@doe.com',
-                                            password='dump-password',
-                                            )
-        
+            email='joe2@doe.com',
+            password='dump-password')
         user.is_active = True
         user.save()
-        response = self.client.post("/login/", {'login-password':'dump-password','login-username':'joe2@doe.com', 
-            'next' : 'http://onet.pl/'})
+        response = self.client.post("/login/", {'login-password': 'dump-password', 'login-username': 'joe2@doe.com',
+                                    'next': 'http://onet.pl/'})
         print response
         self.assertRedirects(response, settings.ADMIN_LOGIN_REDIRECT_URL, status_code=302, target_status_code=200)
 

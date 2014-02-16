@@ -10,11 +10,9 @@
         {% comment %}
         Different paths to files, to support live reload
         {% endcomment %}
-        <link rel="stylesheet" media="all" href="{{ STATIC_URL }}.sass-cache/foundation.css" />
         <link rel="stylesheet" media="all" href="{{ STATIC_URL }}.sass-cache/main.css" />
     {% else %}
         {% compress css %}
-            <link type="text/x-scss" href='{{STATIC_URL}}scss/foundation.scss' rel='stylesheet' />
             <link type="text/x-scss" href='{{STATIC_URL}}scss/main.scss' rel='stylesheet' />
         {% endcompress %}
     {% endif %}

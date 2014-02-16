@@ -5,6 +5,7 @@ from django.test.client import Client
 
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.forms.models import model_to_dict
 
 from sew_django.profiles.models import Profile
 from sew_django.profiles.forms import RegisterUserFullForm, AdminRegisterUserFullForm
@@ -63,13 +64,14 @@ class ProfileTests(TestCase):
         'last_name': 'Kowalski',
         'street': u'przykładowa ulica o długiej nazwie',
         'house': u'przykładowy numer domu',
-        'flat': u'przykładowy numer mieszkania',
+        'flat': u'nr lok.',
         'zip': '51-111',
         'city': u'Wrocław',
         'phone': u'przykładowy telefon',
         'workplace_name': u'nazwa zakład pracy',
         'workplace_address': u'adres zakładu pracy',
         'workplace_city': u'miejscowość zakładu pracy',
+        'workplace_zip': '51-111',
         'password': '123456Aa',
         'password_confirm': '123456Aa',
         'consent_processing_of_personal_data': 'on',
@@ -278,6 +280,47 @@ class ProfileTests(TestCase):
         self.failIf(form.is_valid())
         self.assertEqual(set(form.errors.keys()), set(self.REGISTER_FULL_ADMIN_EXPECTED_REQUIRED_FORM_FIELDS))
 
-    def test_valid_user_reqistration(self):
-        pass
+    def help_test_register_forms(self):
+        #activate & login user
+        user = Profile.objects.get_by_email(self.VALID_USER.get("email"))
+        response = self.client.login(username=self.VALID_USER.get("email"), password=self.VALID_USER.get("password"))
+        self.assertEqual(response, False)
+        user.is_active = True
+        user.save()
+        response = self.client.login(username=self.VALID_USER.get("email"), password=self.VALID_USER.get("password"))
+        self.assertEqual(response, True)
+        user_for_compare = self.VALID_USER.copy()
+        del user_for_compare['password']
+        del user_for_compare['password_confirm']
+        user_for_compare['accept_of_sending_data_to_WOSP'] = True
+        user_for_compare['consent_processing_of_personal_data'] = True
+        user_for_compare['username'] = user_for_compare['email']
+        user_for_compare['read_only'] = False
+        user_for_compare['is_active'] = True
+        user_for_compare['is_superuser'] = False
+        user_for_compare['is_staff'] = False
+        user_for_compare['last_login'] = None
+        user_for_compare['token'] = ''
+        user_for_compare['photo'] = ''
+        user_for_compare['is_active'] = True
+        user_for_compare['rank'] = ''
 
+        user_from_db = model_to_dict(user)
+        del user_from_db['password']
+        del user_from_db['id']
+        del user_from_db['groups']
+        del user_from_db['user_permissions']
+
+        self.assertEqual(set(user_from_db), set(user_for_compare))
+
+    def test_valid_public_user_reqistration(self):
+        form = RegisterUserFullForm(data=self.VALID_USER)
+        self.assertTrue(form.is_valid())
+        form.save()
+        self.help_test_register_forms()
+
+    def test_valid_admin_user_reqistration(self):
+        form = AdminRegisterUserFullForm(data=self.VALID_USER)
+        self.assertTrue(form.is_valid())
+        form.save()
+        self.help_test_register_forms()

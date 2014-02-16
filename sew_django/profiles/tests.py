@@ -39,7 +39,7 @@ class ProfileTests(TestCase):
         'consent_processing_of_personal_data',
         'accept_of_sending_data_to_WOSP']
 
-    REGISTER_FULL_EXPECTED_REQUIRED_FORM_FIELDS =[
+    REGISTER_FULL_ADMIN_EXPECTED_REQUIRED_FORM_FIELDS = [
         'pesel',
         'email',
         'first_name',
@@ -50,7 +50,9 @@ class ProfileTests(TestCase):
         'city',
         'phone',
         'password',
-        'password_confirm',
+        'password_confirm']
+
+    REGISTER_FULL_PUBLIC_EXPECTED_REQUIRED_FORM_FIELDS = REGISTER_FULL_ADMIN_EXPECTED_REQUIRED_FORM_FIELDS + [
         'consent_processing_of_personal_data',
         'accept_of_sending_data_to_WOSP']
 
@@ -268,7 +270,13 @@ class ProfileTests(TestCase):
         #should throw all errors!
         form = RegisterUserFullForm(data={})
         self.failIf(form.is_valid())
-        self.assertEqual(set(form.errors.keys()), set(self.REGISTER_FULL_EXPECTED_REQUIRED_FORM_FIELDS))
+        self.assertEqual(set(form.errors.keys()), set(self.REGISTER_FULL_PUBLIC_EXPECTED_REQUIRED_FORM_FIELDS))
+
+    def test_empty_admin_registration_form(self):
+        #should throw all errors!
+        form = AdminRegisterUserFullForm(data={})
+        self.failIf(form.is_valid())
+        self.assertEqual(set(form.errors.keys()), set(self.REGISTER_FULL_ADMIN_EXPECTED_REQUIRED_FORM_FIELDS))
 
     def test_valid_user_reqistration(self):
         pass

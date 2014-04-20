@@ -14,7 +14,7 @@ env:
 
 install:
  - sudo apt-get update
- - sudo apt-get install ruby2.1.0 --fix-missing
+ - sudo apt-get install ruby1.8 ruby1.8-dev irb rdoc ri --fix-missing
  - gem update --system
  - gem install sass --version "=3.2.12"
  - gem install compass --version "=0.12.2"

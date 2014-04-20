@@ -10,8 +10,8 @@ Sew django
   :target: https://coveralls.io/r/jacoor/sew_django?branch=develop
 
 
-.. image:: https://requires.io/github/jacoor/sew_django/requirements.png?branch=feature%2Fregistration_1
-   :target: https://requires.io/github/jacoor/sew_django/requirements/?branch=feature%2Fregistration_1
+.. image:: https://requires.io/github/jacoor/sew_django/requirements.png?branch=develop
+   :target: https://requires.io/github/jacoor/sew_django/requirements/?branch=develop
    :alt: Requirements Status
 
    

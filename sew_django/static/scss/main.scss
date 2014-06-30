@@ -1,8 +1,8 @@
 @import
-    "../libs/foundation-5.0.2/scss/normalize.scss",
-    "../libs/foundation-5.0.2/scss/foundation.scss",
-    "forms.scss";
+    "../libs/bower_components/foundation/scss/normalize.scss",
+    "../libs/bower_components/foundation/scss/foundation.scss",
+    "components/forms";
 
 .mh300 {
-    min-height: 300px;
+   min-height: 300px;
 }

@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangobower',
     'south',
     'ydcommon',
     'tinymce',
@@ -140,9 +141,12 @@ STATICFILES_DIRS = [
     location("static"),
 ]
 
+BOWER_COMPONENTS_ROOT = location(os.path.join("static", "libs"))
+
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    'djangobower.finders.BowerFinder',
     "compressor.finders.CompressorFinder",
 )
 
@@ -194,6 +198,10 @@ COMPRESS_PRECOMPILERS = (
 )
 today = datetime.date.today()
 FINALE_NR = 22 + 2014 - today.year
+
+BOWER_INSTALLED_APPS = (
+    'foundation#5',
+)
 
 if today.month > 1:
     #starting from february, we count for next year

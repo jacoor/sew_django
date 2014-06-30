@@ -1,4 +1,4 @@
-{% load compress %}
+{% load compress static %}
 <!doctype html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en" >
@@ -51,6 +51,7 @@
         {% endblock %}
     </div>
 {% compress js %}
+<script src="{% static "foundation/js/vendor/jquery.js"%}"></script>
 <script src="{% static "foundation/js/foundation.js"%}"></script>
 <script>
     $(document).foundation();

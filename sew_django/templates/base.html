@@ -17,7 +17,7 @@
         {% endcompress %}
     {% endif %}
     {% compress js %}
-        <script src="{{STATIC_URL}}libs/foundation-5.0.2/js/vendor/custom.modernizr.js"></script>
+        <script src="{% static "foundation/js/vendor/modernizr.js"%}"></script>
     {% endcompress %}
 </head>
 <body class="{%block bodyClass %}{% endblock%}">
@@ -51,32 +51,7 @@
         {% endblock %}
     </div>
 {% compress js %}
-<script src='{{STATIC_URL}}libs/foundation-5.0.2/js/vendor/jquery.js'></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.alert.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.clearing.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.dropdown.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.joyride.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.magellan.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.orbit.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.tooltip.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.topbar.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.interchange.js"></script>
-
-<script src="{{STATIC_URL}}libs/foundation-5.0.2/js/foundation/foundation.abide.js"></script>
-
+<script src="{% static "foundation/js/foundation.js"%}"></script>
 <script>
     $(document).foundation();
 </script>

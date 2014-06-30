@@ -7,8 +7,9 @@ python:
 
 env:
   - DJANGO="django==1.6.2 --use-mirrors"
-  - DJANGO="django==1.6.1 --use-mirrors"
-  - DJANGO="django==1.6.2 --use-mirrors"
+  - DJANGO="django==1.6.3 --use-mirrors"
+  - DJANGO="django==1.6.4 --use-mirrors"
+  - DJANGO="django==1.6.5 --use-mirrors"
   - DJANGO="django==1.6 --use-mirrors"
   - DJANGO="django --use-mirrors" #should be latest stable
  # - DJANGO=https://github.com/django/django/archive/master.zip  

@@ -1,30 +1,29 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.conf import settings
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm, \
-    AdminPasswordChangeForm as DjagnoAdminPasswordChangeForm, UserCreationForm, \
+from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm,\
+    AdminPasswordChangeForm as DjagnoAdminPasswordChangeForm, \
     AuthenticationForm as DjangoAuthenticationForm
-
-from localflavor.pl.forms import PLPESELField
 
 from django.utils.translation import ugettext_lazy as _
 from passwords.fields import PasswordField
-from localflavor.pl.forms import PLPESELField
 
 from sew_django.profiles.models import Profile
+
 
 class ValidatingSetPasswordForm(SetPasswordForm):
     new_password1 = PasswordField(label=_("New password"))
     new_password2 = PasswordField(label=_("New password confirm"))
- 
+
+
 class ValidatingPasswordChangeForm(PasswordChangeForm):
     new_password1 = PasswordField(label=_("New password"))
     new_password2 = PasswordField(label=_("New password confirmation"))
 
+
 class AdminPasswordChangeForm(DjagnoAdminPasswordChangeForm):
     password1 = PasswordField(label=_("New password"))
     password2 = PasswordField(label=_("New password confirm"))
+
 
 class AuthenticationForm(DjangoAuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -32,10 +31,12 @@ class AuthenticationForm(DjangoAuthenticationForm):
         self.fields['username'].label = _(u"Numer PESEL lub adres email")
         self.error_messages['invalid_login'] = _(u"Wprowadź poprawny numer PESEL lub adres email.")
 
+
 class PeselForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['pesel',]
+        fields = ['pesel']
+
 
 class RegisterUserFullForm(forms.ModelForm):
     password = PasswordField(label=_("Password"))
@@ -63,12 +64,13 @@ class RegisterUserFullForm(forms.ModelForm):
         if commit:
             profile.save()
         return profile
-    
+
     class Meta:
         model = Profile
-        fields = ['pesel','email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city', 'phone',
-            'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password','password_confirm',
-            "consent_processing_of_personal_data", "accept_of_sending_data_to_WOSP"]
+        fields = ['pesel', 'email', 'photo', 'first_name', 'last_name', 'street', 'house', 'flat', 'zip', 'city',
+                  'phone', 'workplace_name', 'workplace_address', 'workplace_zip', 'workplace_city', 'password',
+                  'password_confirm', "consent_processing_of_personal_data", "accept_of_sending_data_to_WOSP"]
+
 
 class AdminRegisterUserFullForm(RegisterUserFullForm):
     #small hack to show those fields
@@ -85,4 +87,3 @@ class AdminRegisterUserFullForm(RegisterUserFullForm):
         cleaned_data['consent_processing_of_personal_data'] = True
         cleaned_data['accept_of_sending_data_to_WOSP'] = True
         return cleaned_data
-

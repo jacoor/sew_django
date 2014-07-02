@@ -22,9 +22,7 @@ class ContentTypeRestrictedFileField(ImageField):
         super(ContentTypeRestrictedFileField, self).__init__(*args, **kwargs)
 
     def clean(self, *args, **kwargs):
-        kwargs.pop('max_upload_size')
         data = super(ContentTypeRestrictedFileField, self).clean(*args, **kwargs)
-
         file = data.file
         try:
             if file._size > self.max_upload_size:

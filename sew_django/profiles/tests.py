@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from os import getcwd
+
 from django.test import TestCase
-#from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 from django.test.client import Client
 
 from django.conf import settings
@@ -323,3 +325,34 @@ class ProfileTests(TestCase):
         self.assertTrue(form.is_valid())
         form.save()
         self.help_test_register_forms()
+
+    def test_invalid_photo_public_user_reqistration(self):
+        # actually this is integration test not unit test
+        data = self.VALID_USER
+        path = getcwd() + '/sew_django/test_data/'
+        with open(path + 'bad-photo.py') as fp:
+            data['photo'] = fp
+            response = self.client.post(reverse('register-full'), data)
+            self.assertEqual(
+                response.context['form'].errors['photo'],
+                [u'Wgraj poprawny plik graficzny. Ten, który został wgrany, nie jest obrazem, albo jest uszkodzony.'])
+
+        with open(path + 'huge-photo.jpg') as fp:
+            data['photo'] = fp
+            response = self.client.post(reverse('register-full'), data)
+            self.assertEqual(
+                response.context['form'].errors['photo'],
+                [u'Please keep filesize under 2,0 MB. Current filesize 2,1 MB'])
+
+    def test_valid_photo_public_user_reqistration(self):
+        # actually this is integration test not unit test
+        data = self.VALID_USER
+        path = getcwd() + '/sew_django/test_data/'
+        all_profiles_count = Profile.objects.count()
+        with open(path + 'good-photo.jpg') as fp:
+            data['photo'] = fp
+            response = self.client.post(reverse('register-full'), data)
+            # FIXME!! add proper path
+            self.assertEqual(response.status_code, 302)  # missing page after proper submission.
+            #check if client is saved properly
+            self.assertEqual(all_profiles_count + 1, Profile.objects.count())

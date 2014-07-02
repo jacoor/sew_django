@@ -52,7 +52,7 @@ class LoginView(IndexView):
             return settings.LOGIN_REDIRECT_URL
 
         return redirect_to
-        
+
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
         redirect_to = self.check_redirect(context)
@@ -77,6 +77,7 @@ class LoginView(IndexView):
         self.request.session.set_test_cookie()
         return self.render_to_response(context)
 
+
 class RegisterView(IndexView):
     template_name = "register/form.html"
 
@@ -89,16 +90,19 @@ class RegisterView(IndexView):
                 data=request.POST,
             )
             if pesel_form.is_valid():
-                response = HttpResponseRedirect("%s?pesel=%s" % (reverse('register-full'), pesel_form.cleaned_data['pesel']))
+                response = HttpResponseRedirect("%s?pesel=%s" % (reverse('register-full'),
+                                                pesel_form.cleaned_data['pesel']))
                 return response
             context['pesel_form'] = pesel_form
 
         return self.render_to_response(context)
 
+
 class RegisterViewFull(CreateView):
     template_name = "register/full.html"
     model = Profile
     form_class = RegisterUserFullForm
+    success_url = "/placeholder"  # FIXME!!!
 
     def get_initial(self, *args, **kwargs):
         initial = super(RegisterViewFull, self).get_initial(*args, **kwargs)

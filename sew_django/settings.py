@@ -186,9 +186,9 @@ FILEBROWSER_VERSIONS_BASEDIR = '.thumbnails'
 FILEBROWSER_URL_TINYMCE = STATIC_URL + "tiny_mce/"
 FILEBROWSER_PATH_TINYMCE = STATIC_URL + "tiny_mce/"
 
-FILEBROWSER_VERSIONS = {
-                      'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 120, 'height': 120, 'opts': 'crop'},
-                      }
+FILEBROWSER_VERSIONS = {'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 300, 'height': 300,
+                                            'opts': 'crop'},
+                        }
 FILEBROWSER_ADMIN_VERSIONS = []
 FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
 
@@ -198,6 +198,7 @@ COMPRESS_PRECOMPILERS = (
 )
 today = datetime.date.today()
 FINALE_NR = 22 + 2014 - today.year
+PROFILE_PHOTO_SIZE = "800x800"
 
 BOWER_INSTALLED_APPS = (
     'foundation#5',

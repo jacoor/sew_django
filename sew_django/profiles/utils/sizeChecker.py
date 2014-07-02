@@ -17,24 +17,20 @@ class ContentTypeRestrictedFileField(ImageField):
             250MB - 214958080
             500MB - 429916160
 """
+    def __init__(self, *args, **kwargs):
+        self.max_upload_size = kwargs.pop("max_upload_size")
+        super(ContentTypeRestrictedFileField, self).__init__(*args, **kwargs)
 
+    def clean(self, *args, **kwargs):
+        kwargs.pop('max_upload_size')
+        data = super(ContentTypeRestrictedFileField, self).clean(*args, **kwargs)
 
-def __init__(self, *args, **kwargs):
-    self.max_upload_size = kwargs.pop("max_upload_size")
+        file = data.file
+        try:
+            if file._size > self.max_upload_size:
+                raise forms.ValidationError(_('Please keep filesize under %s. Current filesize %s')
+                                            % (filesizeformat(self.max_upload_size), filesizeformat(file._size)))
+        except AttributeError:
+            pass
 
-    super(ContentTypeRestrictedFileField, self).__init__(*args, **kwargs)
-
-
-def clean(self, *args, **kwargs):
-    kwargs.pop('max_upload_size')
-    data = super(ContentTypeRestrictedFileField, self).clean(*args, **kwargs)
-
-    file = data.file
-    try:
-        if file._size > self.max_upload_size:
-            raise forms.ValidationError(_('Please keep filesize under %s. Current filesize %s')
-                                        % (filesizeformat(self.max_upload_size), filesizeformat(file._size)))
-    except AttributeError:
-        pass
-
-    return data
+        return data

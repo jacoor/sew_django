@@ -44,9 +44,10 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True,
         help_text=u"Zdjęcie na identyfikator. Ma to być zdjęcie twarzy, bez ciemnych okularów, masek itp."
-        + u" Maksymalny rozmiar pliku 2 MB. Preferowane zdjęcie o rozmiarze 800x800px - inne będą"
+        + u" Maksymalny rozmiar pliku {{fs}}. Preferowane zdjęcie o rozmiarze 800x800px - inne będą"
         + u" przeskalowane automatycznie, co może powodować nieoczekiwane skutki. Jeśli wyślesz nam niepoprawne"
-        + u" zdjęcie możesz zostać wykluczony z procesu rekrutacji.",
+        + u" zdjęcie możesz zostać wykluczony z procesu rekrutacji."
+        .format(fs=settings.MAX_PROFILE_PHOTO_FILE_HUMAN_READABLE_SIZE),
         max_upload_size=settings.MAX_PROFILE_PHOTO_FILE_SIZE
     )
 

@@ -4,9 +4,9 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-from sorl.thumbnail import ImageField
-
 from sew_django.profiles.fields import PLPESELModelField, PLPostalCodeModelField
+from sew_django.profiles.utils.sizeChecker import ContentTypeRestrictedFileField as ImageField
+
 
 class ProfileManager(BaseUserManager):
     def create_user(self, email=None, password=None, **extra_fields):
@@ -46,7 +46,10 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         help_text=u"Zdjęcie na identyfikator. Ma to być zdjęcie twarzy, bez ciemnych okularów, masek itp."
         + u" Maksymalny rozmiar pliku 2 MB. Preferowane zdjęcie o rozmiarze 800x800px - inne będą"
         + u" przeskalowane automatycznie, co może powodować nieoczekiwane skutki. Jeśli wyślesz nam niepoprawne"
-        + u" zdjęcie możesz zostać wykluczony z procesu rekrutacji.")
+        + u" zdjęcie możesz zostać wykluczony z procesu rekrutacji.",
+        max_upload_size=settings.MAX_PROFILE_PHOTO_FILE_SIZE
+    )
+
     pesel = PLPESELModelField(
         'PESEL',
         unique=True,
@@ -132,9 +135,14 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     def get_username(self):
         return self.username
 
+    def __init__(self, *args, **kwargs):
+        super(Profile, self).__init__(*args, **kwargs)
+        self.__original_photo = self.photo
+
     def save(self, *args, **kwargs):
         if not self.username:
             self.username = self.email
+
         super(Profile, self).save(*args, **kwargs)
 
     class Meta:

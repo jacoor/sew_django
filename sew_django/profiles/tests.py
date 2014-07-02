@@ -309,6 +309,8 @@ class ProfileTests(TestCase):
         del user_from_db['id']
         del user_from_db['groups']
         del user_from_db['user_permissions']
+        del user_from_db['photo_width']
+        del user_from_db['photo_height']
 
         self.assertEqual(set(user_from_db), set(user_for_compare))
 

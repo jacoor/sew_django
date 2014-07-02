@@ -199,6 +199,7 @@ COMPRESS_PRECOMPILERS = (
 today = datetime.date.today()
 FINALE_NR = 22 + 2014 - today.year
 PROFILE_PHOTO_SIZE = "800x800"
+MAX_PROFILE_PHOTO_FILE_SIZE = 2097152
 
 BOWER_INSTALLED_APPS = (
     'foundation#5',

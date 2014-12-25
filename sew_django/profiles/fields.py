@@ -3,6 +3,7 @@ from django.db import models
 from localflavor.pl.forms import PLPESELField, PLPostalCodeField
 # Create your models here.
 
+
 class PLPESELModelField(models.CharField):
 
     description = "CharField with PLPESELField widget"

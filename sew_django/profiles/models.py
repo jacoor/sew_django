@@ -8,6 +8,7 @@ from sorl.thumbnail import ImageField
 
 from sew_django.profiles.fields import PLPESELModelField, PLPostalCodeModelField
 
+
 class ProfileManager(BaseUserManager):
     def create_user(self, email=None, password=None, **extra_fields):
         if not email:

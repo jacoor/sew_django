@@ -19,7 +19,7 @@ Sew django
 
 Prerequisites
 =============
-Python > 2.6, PIP, Homebrew (Mac OSX), Git (and a github account), VirtualEnv (mkvirtualenv helper script)
+Python > 2.7, PIP, Homebrew (Mac OSX), Git (and a github account), VirtualEnv (mkvirtualenv helper script)
 
 Dev requirements
 ================

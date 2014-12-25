@@ -1,6 +1,7 @@
 import os
 TEST_DATABASE_CHARSET = 'utf8'
 
+
 def update_settings_for_tests(settings):
     """Modify some of the values set in settings.py.
     """
@@ -9,6 +10,7 @@ def update_settings_for_tests(settings):
         return
     settings['_settings_updated'] = True
     settings['BROKER_BACKEND'] = 'memory'
+    settings['COMPRESS_PRECOMPILERS'] = []
 
     settings['PASSWORD_HASHERS'] = (
         'django.contrib.auth.hashers.MD5PasswordHasher',
@@ -25,5 +27,5 @@ def update_settings_for_tests(settings):
             'default': {
                 'NAME': ':memory:',
                 'ENGINE': 'django.db.backends.sqlite3',
-                },
-            }
+            },
+        }

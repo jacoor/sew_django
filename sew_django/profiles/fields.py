@@ -15,8 +15,8 @@ class PLPESELModelField(models.CharField):
         defaults.update(kwargs)
         return super(PLPESELModelField, self).formfield(**defaults)
 
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPESELModelField"])
+# from south.modelsinspector import add_introspection_rules
+# add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPESELModelField"])
 
 
 class PLPostalCodeModelField(models.CharField):
@@ -30,5 +30,5 @@ class PLPostalCodeModelField(models.CharField):
         defaults.update(kwargs)
         return super(PLPostalCodeModelField, self).formfield(**defaults)
 
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPostalCodeModelField"])
+# from south.modelsinspector import add_introspection_rules
+# add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPostalCodeModelField"])

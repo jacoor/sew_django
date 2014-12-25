@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os, datetime
+import os
+import datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -17,8 +18,8 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 project = lambda: os.path.dirname(os.path.realpath(__file__))
 location = lambda x: os.path.join(str(project()), str(x))
 
-LOGIN_REDIRECT_URL="/profil/"
-ADMIN_LOGIN_REDIRECT_URL="/admin/"
+LOGIN_REDIRECT_URL = "/profil/"
+ADMIN_LOGIN_REDIRECT_URL = "/admin/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -45,7 +46,7 @@ COMPRESS_OFFLINE = True
 AUTH_USER_MODEL = 'profiles.Profile'
 
 PASSWORD_MIN_LENGTH = 8
-PASSWORD_COMPLEXITY = { "UPPER":  1, "LOWER":  1, "DIGITS": 1 }
+PASSWORD_COMPLEXITY = {"UPPER": 1, "LOWER": 1, "DIGITS": 1}
 
 # Application definition
 
@@ -68,7 +69,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangobower',
-    'south',
     'ydcommon',
     'tinymce',
     'compressor',
@@ -83,7 +83,7 @@ INSTALLED_APPS = (
 ) + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.BrokenLinkEmailsMiddleware',#responsible of reporting 404 errors
+    'django.middleware.common.BrokenLinkEmailsMiddleware',  # responsible of reporting 404 errors
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -99,11 +99,8 @@ WSGI_APPLICATION = 'sew_django.wsgi.application'
 
 FORCE_SCRIPT_NAME = ""
 
-
-
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -118,7 +115,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE="pl"
+LANGUAGE_CODE = "pl"
 
 TIME_ZONE = 'UTC'
 
@@ -186,9 +183,10 @@ FILEBROWSER_VERSIONS_BASEDIR = '.thumbnails'
 FILEBROWSER_URL_TINYMCE = STATIC_URL + "tiny_mce/"
 FILEBROWSER_PATH_TINYMCE = STATIC_URL + "tiny_mce/"
 
-FILEBROWSER_VERSIONS = {'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 300, 'height': 300,
-                                            'opts': 'crop'},
-                        }
+FILEBROWSER_VERSIONS = {
+    'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 300, 'height': 300, 'opts': 'crop'},
+}
+
 FILEBROWSER_ADMIN_VERSIONS = []
 FILEBROWSER_ADMIN_THUMBNAIL = 'admin_thumbnail'
 
@@ -224,4 +222,3 @@ if TESTING:
         update_settings_for_tests(locals())
     except ImportError:
         pass
-

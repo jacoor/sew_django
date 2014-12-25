@@ -8,6 +8,7 @@ from sew_django.profiles.fields import PLPESELModelField, PLPostalCodeModelField
 from sew_django.profiles.utils.sizeChecker import ContentTypeRestrictedFileField as ImageField
 
 
+
 class ProfileManager(BaseUserManager):
     def create_user(self, email=None, password=None, **extra_fields):
         if not email:

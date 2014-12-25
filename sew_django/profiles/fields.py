@@ -3,6 +3,7 @@ from django.db import models
 from localflavor.pl.forms import PLPESELField, PLPostalCodeField
 # Create your models here.
 
+
 class PLPESELModelField(models.CharField):
 
     description = "CharField with PLPESELField widget"
@@ -14,8 +15,8 @@ class PLPESELModelField(models.CharField):
         defaults.update(kwargs)
         return super(PLPESELModelField, self).formfield(**defaults)
 
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPESELModelField"])
+# from south.modelsinspector import add_introspection_rules
+# add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPESELModelField"])
 
 
 class PLPostalCodeModelField(models.CharField):
@@ -29,5 +30,5 @@ class PLPostalCodeModelField(models.CharField):
         defaults.update(kwargs)
         return super(PLPostalCodeModelField, self).formfield(**defaults)
 
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPostalCodeModelField"])
+# from south.modelsinspector import add_introspection_rules
+# add_introspection_rules([], ["^sew_django\.profiles\.fields\.PLPostalCodeModelField"])

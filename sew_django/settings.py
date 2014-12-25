@@ -221,4 +221,3 @@ if TESTING:
         update_settings_for_tests(locals())
     except ImportError:
         pass
-

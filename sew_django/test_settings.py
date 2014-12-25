@@ -10,7 +10,7 @@ def update_settings_for_tests(settings):
         return
     settings['_settings_updated'] = True
     settings['BROKER_BACKEND'] = 'memory'
-    #settings['COMPRESS_PRECOMPILERS'] = []
+    settings['COMPRESS_PRECOMPILERS'] = []
 
     settings['PASSWORD_HASHERS'] = (
         'django.contrib.auth.hashers.MD5PasswordHasher',

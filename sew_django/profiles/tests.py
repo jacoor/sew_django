@@ -61,6 +61,7 @@ class ProfileTests(TestCase):
 
     VALID_USER = {
         'pesel': '80010363616',
+        'birthdate': '1980-01-03',
         'email': 'test@example.com',
         'first_name': 'Jan',
         'last_name': 'Kowalski',

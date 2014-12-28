@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 from sew_django.profiles.fields import PLPESELModelField, PLPostalCodeModelField
-from sew_django.profiles.utils.sizeChecker import ContentTypeRestrictedFileField as ImageField
+from sew_django.profiles.utils.sizeChecker import ContentTypeRestrictedFileField
 
 
 class ProfileManager(BaseUserManager):
@@ -38,18 +38,18 @@ class ProfileManager(BaseUserManager):
 
 class Profile(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['pesel', 'email', 'first_name', 'last_name', 'street', 'house', 'zip', 'city', 'phone', ]
-    photo = ImageField(
+    photo = ContentTypeRestrictedFileField(
         u'zdjęcie',
         upload_to='photos',
         null=True,
         blank=True,
+        max_upload_size=settings.MAX_PROFILE_PHOTO_FILE_SIZE,
         help_text=(
             u"Zdjęcie na identyfikator. Ma to być zdjęcie twarzy, bez ciemnych okularów, masek itp."
             + u" Maksymalny rozmiar pliku {fs}. Preferowane zdjęcie o rozmiarze 800x800px - inne będą"
             + u" przeskalowane automatycznie, co może powodować nieoczekiwane skutki. Jeśli wyślesz nam niepoprawne"
             + u" zdjęcie możesz zostać wykluczony z procesu rekrutacji.")
         .format(fs=settings.MAX_PROFILE_PHOTO_FILE_HUMAN_READABLE_SIZE),
-        max_upload_size=settings.MAX_PROFILE_PHOTO_FILE_SIZE
     )
 
     pesel = PLPESELModelField(
@@ -85,7 +85,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
             + u" ich poprawiania. Przyjmuję do wiadomości że wyrażenie niniejszej zgody jest wymagane w celu"
             + u" kontynuowania rejestracji.")
         .format(settings=settings),
-        default=True)
+        null=False, default=False)
 
     date_consent_processing_of_personal_data = models.DateTimeField(
         u'Data wyrażenia zgody na przetwarzanie danych',
@@ -98,7 +98,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         + u" o ochronie danych osobowych (Dz. U. nr 133, poz. 883 ze zm.) w celu organizacji Finału Wielkiej"
         + u" Orkiestry Świątecznej Pomocy. Przyjmuję do wiadomości że wyrażenie niniejszej"
         + u" zgody jest wymagane w celu kontynuowania rejestracji.",
-        default=True)
+        null=False, default=False)
     date_accept_of_sending_data_to_WOSP = models.DateTimeField(
         u'Data wyrażenia zgody na przekazanie danych do WOŚP',
         auto_now_add=True)
@@ -146,6 +146,12 @@ class Profile(AbstractBaseUser, PermissionsMixin):
             self.username = self.email
 
         super(Profile, self).save(*args, **kwargs)
+
+    @property
+    def birthdate(self):
+        data = self.pesel.split(2)
+        print data
+        return 'dupa'
 
     class Meta:
         verbose_name = "użytkownik"

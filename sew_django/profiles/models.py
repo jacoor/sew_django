@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import cached_property
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -147,11 +148,26 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
         super(Profile, self).save(*args, **kwargs)
 
-    @property
+    @cached_property
     def birthdate(self):
-        data = self.pesel.split(2)
-        print data
-        return 'dupa'
+        x = str(self.pesel)
+        chunks, chunk_size = len(x), 2
+        data = [x[i: i + chunk_size] for i in range(0, chunks, chunk_size)]
+        # check if this is new pesel (birth year above 2000, so month > 20)
+        bd = {}
+        if int(data[1]) > 20:
+            bd["month"] = int(data[1]) - 20
+            bd["year"] = '20' + str(data[0])
+        else:
+            bd["month"] = data[1]
+            bd["year"] = str(19) + str(data[0])
+        bd['day'] = data[2]
+
+        bd["year"] = "%04d" % int(bd["year"])
+        bd["day"] = "%02d" % int(bd["day"])
+        bd["month"] = "%02d" % int(bd["month"])
+        return "{bd[year]}-{bd[month]}-{bd[day]}".format(bd=bd)
+    birthdate.short_description = 'Data urodzenia'
 
     class Meta:
         verbose_name = "użytkownik"

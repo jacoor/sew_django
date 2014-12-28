@@ -105,6 +105,12 @@ class ProfileTests(TestCase):
         user.set_password('dump-password')
         verify_user = Profile.objects.get_by_email('joe1@doe.com')
         self.assertEqual(verify_user.username, user.username)
+        self.assertEqual(verify_user.birthdate, '1981-10-15')
+
+        user.pesel = self.CORRECT_PESEL_2
+        user.save()
+        verify_user = Profile.objects.get_by_email('joe1@doe.com')
+        self.assertEqual(verify_user.birthdate, '2002-08-07')
 
     def test_create_super_user(self):
         user = Profile.objects.create_superuser(
@@ -308,6 +314,7 @@ class ProfileTests(TestCase):
         user_for_compare['rank'] = ''
 
         user_from_db = model_to_dict(user)
+        user_from_db['birthdate'] = user.birthdate
         del user_from_db['password']
         del user_from_db['id']
         del user_from_db['groups']

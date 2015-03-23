@@ -1,10 +1,10 @@
-Django==1.7.5
+Django==1.7.7
 MySQL-python==1.2.5
 django-compressor==1.4
 pytz>2012
 Pillow==2.7.0
 raven
-ydcommon==0.1.22
+ydcommon==0.1.24
 django-tinymce==1.5.3
 flup==1.0.3.dev-20110405
 django-grappelli==2.6.3

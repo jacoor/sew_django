@@ -297,7 +297,7 @@ class ProfileTests(TestCase):
         user_for_compare['is_active'] = True
         user_for_compare['is_superuser'] = False
         user_for_compare['is_staff'] = False
-        user_for_compare['last_login'] = None
+        user_for_compare['last_login'] = ''
         user_for_compare['token'] = ''
         user_for_compare['photo'] = ''
         user_for_compare['is_active'] = True

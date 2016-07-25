@@ -4,7 +4,7 @@ django-compressor==2.0
 pytz>2012
 Pillow==3.3.0
 raven
-ydcommon==0.1.51
+ydcommon==0.1.53
 django-tinymce==2.3.0
 flup==1.0.3.dev20151210
 django-grappelli==2.8.1

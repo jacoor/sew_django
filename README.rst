@@ -1,3 +1,5 @@
+This project is abandoned. There might be a day I will come back to it but not in recent future (November, 2016).
+
 **********
 Sew django
 **********

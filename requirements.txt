@@ -7,7 +7,7 @@ raven
 ydcommon==0.1.68
 django-tinymce==2.6.0
 flup==1.0.3.dev20161029
-django-grappelli==2.9.1
+django-grappelli==2.10.1
 django-filebrowser==3.7.2
 django-celery==3.2.1
 pyflakes

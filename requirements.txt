@@ -13,5 +13,5 @@ django-celery==3.3.1
 pyflakes
 django-passwords==0.3.12
 django-localflavor==2.2
-sorl-thumbnail==12.6.2
+sorl-thumbnail==12.6.3
 django-bower==5.2.0

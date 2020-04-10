@@ -5,7 +5,7 @@ pytz>2012
 Pillow==7.1.1
 raven
 ydcommon==0.1.68
-django-tinymce==2.9.0
+django-tinymce==3.0.1
 flup==1.0.3
 django-grappelli==2.14.1
 django-filebrowser==3.12.1
